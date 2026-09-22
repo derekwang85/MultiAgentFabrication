@@ -1,0 +1,7 @@
+{
+  "source": "C:\\Users\\A\\Documents\\AIHanessMethodology\\writing-harness",
+  "copied_at": "2026-09-05",
+  "method": "copy-not-junction",
+  "reason": "each series needs an independent evolution loop / scoreboard",
+  "files": ["GATES.md", "EVALUATION.md", "EVALUATION-EN.md", "evaluate.py", "evaluate-en.py", "writing-gates.py", "writing-gates-en.py", "judge.py"]
+}

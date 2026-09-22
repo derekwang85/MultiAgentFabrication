@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "updated": "2026-09-05",
+  "system": {
+    "scale_max": 10.0,
+    "rule": "新文章写作水平必须超过前序所有文章的平均分（基准线）。",
+    "deadline_note": "平均分 = 全部已评分数值的算术平均，保留 2 位。基准线用于下一篇文章的目标分。"
+  },
+  "breakthrough_dims": [
+    "遣词造句",
+    "经典案例",
+    "名言名句引用"
+  ],
+  "articles": [
+    {
+      "key": "00-prologue",
+      "title": "序章：很多 Agent，然后呢？",
+      "file": "articles/00-prologue.md",
+      "score": 8.8,
+      "status": "样稿待审",
+      "date": "2026-09-05",
+      "breakthrough": "经典案例",
+      "note": "首篇立骨架，方法论对比谱系（survey）奠基"
+    }
+  ]
+}
