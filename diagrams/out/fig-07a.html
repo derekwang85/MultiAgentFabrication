@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>宣称先跨过可证伪的门槛，才有资格对齐事实上的分数</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1160px; height:720px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>宣称先跨过可证伪的门槛，才有资格对齐事实上的分数</h1>
+<div class="sub">主张 A4 · 篇7 抽象结构 —— 模型宣称带 与 基准事实带 夹出对齐区：说得能被打翻才作数，露出来的口子都是假分负债</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 720">
+  <polyline points="223.0,408.0 407.8,408.0 407.8,315.0 592.5,315.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="223.0" cy="408.0" r="2.6" fill="var(--line)"/><circle cx="592.5" cy="315.0" r="3.0" fill="var(--line)"/>
+    <rect x="402.6" y="346.5" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="423.0" y="361.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">不能自证</text>
+    <polyline points="592.5,505.0 796.2,505.0 796.2,408.0 1000.0,408.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="592.5" cy="505.0" r="2.6" fill="var(--line)"/><circle cx="1000.0" cy="408.0" r="3.0" fill="var(--line)"/>
+    <rect x="762.1" y="441.5" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="782.5" y="456.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">读数对照</text>
+  </svg>
+  <div class="zone tinted" style="left:40px;top:120px;width:360px;height:580px"><span class="zone-label">模型宣称带</span><span class="zone-note">模型自报的判断与置信</span></div>
+    <div class="node input" style="left:90px;top:210px;width:266px;height:96px"><b>一次宣称</b><small>结论 / 理由 / 置信&#10;没说清会被什么推翻</small></div>
+    <div class="node input" style="left:90px;top:360px;width:266px;height:96px"><b>自设对齐口径</b><small>声称该拿几分，凭据在哪儿</small></div>
+    <div class="node risk" style="left:90px;top:520px;width:266px;height:112px"><b>外露 · 假分负债</b><small>宣称越过可对齐边界&#10;说出来的才算不上数</small></div>
+    <div class="zone tinted hl" style="left:440px;top:120px;width:300px;height:580px"><span class="zone-label">对齐区</span><span class="zone-note">宣称与事实互相接榫处</span></div>
+    <div class="node process" style="left:490px;top:250px;width:205px;height:130px"><b>已对齐 · 可证伪</b><small>先做成能被证据击中的断言&#10;再对基准读数</small></div>
+    <div class="node process" style="left:490px;top:440px;width:205px;height:130px"><b>判定出账</b><small>对得上证据就过&#10;对不上就退回重取证</small></div>
+    <div class="zone tinted" style="left:790px;top:120px;width:350px;height:580px"><span class="zone-label">基准事实带</span><span class="zone-note">独立于模型的可复现证据</span></div>
+    <div class="node storage" style="left:870px;top:210px;width:260px;height:96px"><b>可复现基准事实</b><small>参考值 + 触发线&#10;不经模型之手</small></div>
+    <div class="node storage" style="left:870px;top:360px;width:260px;height:96px"><b>证据读数</b><small>标尺定好，读数照着打</small></div>
+    <div class="node risk" style="left:870px;top:520px;width:260px;height:112px"><b>外露 · 够不着的事实</b><small>证据外延偏严&#10;塞不进去的承诺落空</small></div>
+</div>
+</body>
+</html>

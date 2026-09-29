@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>从单点判断器到Multi-Agent：熵被管理，而非 Agent 变多</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1320px; height:880px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>从单点判断器到Multi-Agent：熵被管理，而非 Agent 变多</h1>
+<div class="sub">A1 · 主线画面 —— 多 Agent 的本质不是人海战术，而是把判断改造成可分工、可校验、可审计的对象</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 880">
+  <polyline points="210.0,118.0 210.0,280.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="210.0" cy="118.0" r="2.6" fill="var(--line)"/><circle cx="210.0" cy="280.0" r="3.0" fill="var(--line)"/>
+    <rect x="189.6" y="168.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="210.0" y="183.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">丢给黑盒</text>
+    <polyline points="210.0,280.0 210.0,448.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="210.0" cy="280.0" r="2.6" fill="var(--line)"/><circle cx="210.0" cy="448.0" r="3.0" fill="var(--line)"/>
+    <polyline points="210.0,280.0 385.0,280.0 385.0,300.0 560.0,300.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="210.0" cy="280.0" r="2.6" fill="var(--line)"/><circle cx="560.0" cy="300.0" r="3.0" fill="var(--line)"/>
+    <rect x="398.8" y="275.0" width="62.4" height="18.0" rx="4" fill="var(--bg)"/><text x="430.0" y="290.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">？ 不能被证明</text>
+    <polyline points="560.0,300.0 699.0,300.0 699.0,242.0 838.0,242.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="560.0" cy="300.0" r="2.6" fill="var(--line)"/><circle cx="838.0" cy="242.0" r="3.0" fill="var(--line)"/>
+    <rect x="676.8" y="256.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="690.0" y="271.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">编入</text>
+    <polyline points="1010.0,118.0 924.0,118.0 924.0,242.0 838.0,242.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1010.0" cy="118.0" r="2.6" fill="var(--line)"/><circle cx="838.0" cy="242.0" r="3.0" fill="var(--line)"/>
+    <polyline points="838.0,242.0 924.0,242.0 1010.0,242.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="838.0" cy="242.0" r="2.6" fill="var(--line)"/><circle cx="1010.0" cy="242.0" r="3.0" fill="var(--line)"/>
+    <rect x="724.8" y="227.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="738.0" y="242.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">派活</text>
+    <polyline points="1010.0,242.0 1096.0,242.0 1182.0,242.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1010.0" cy="242.0" r="2.6" fill="var(--line)"/><circle cx="1182.0" cy="242.0" r="3.0" fill="var(--line)"/>
+    <rect x="1269.6" y="227.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="1290.0" y="242.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">证据留痕</text>
+    <polyline points="1010.0,242.0 1010.0,462.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1010.0" cy="242.0" r="2.6" fill="var(--line)"/><circle cx="1010.0" cy="462.0" r="3.0" fill="var(--line)"/>
+    <rect x="996.8" y="337.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="1010.0" y="352.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">证据</text>
+    <polyline points="1182.0,242.0 1096.0,242.0 1096.0,462.0 1010.0,462.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1182.0" cy="242.0" r="2.6" fill="var(--line)"/><circle cx="1010.0" cy="462.0" r="3.0" fill="var(--line)"/>
+    <rect x="1082.8" y="337.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="1096.0" y="352.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">留痕</text>
+    <polyline points="1010.0,462.0 1010.0,564.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1010.0" cy="462.0" r="2.6" fill="var(--line)"/><circle cx="1010.0" cy="564.0" r="3.0" fill="var(--line)"/>
+    <rect x="993.2" y="513.0" width="33.6" height="18.0" rx="4" fill="var(--bg)"/><text x="1010.0" y="528.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">人闸门</text>
+    <polyline points="1010.0,564.0 1096.0,564.0 1096.0,242.0 1182.0,242.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1010.0" cy="564.0" r="2.6" fill="var(--line)"/><circle cx="1182.0" cy="242.0" r="3.0" fill="var(--line)"/>
+    <rect x="1075.6" y="393.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="1096.0" y="408.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">教训回流</text>
+  </svg>
+  <div class="zone" style="left:20px;top:40px;width:380px;height:560px"><span class="zone-label">改造前 · 单点判断器（黑盒）</span></div>
+    <div class="node input" style="left:60px;top:90px;width:300px;height:56px"><b>一个需求 / 一个问题</b><small>原始输入</small></div>
+    <div class="node risk" style="left:60px;top:220px;width:300px;height:120px"><b>单 Agent 判断器</b><small>不透明 · 不可证明 · 单点失败</small></div>
+    <div class="node neutral" style="left:60px;top:420px;width:300px;height:56px"><b>一个答案</b><small>无法验证对不对 · 无法追溯来路</small></div>
+    <div class="zone" style="left:470px;top:40px;width:180px;height:560px"><span class="zone-label">重构</span></div>
+    <div class="node process" style="left:500px;top:220px;width:120px;height:160px"><b>切分&#10;分工</b><small>约束求解选型 · 路由到角色</small></div>
+    <div class="zone" style="left:720px;top:40px;width:580px;height:560px"><span class="zone-label">改造后 · Multi-Agent（可分工 / 可校验 / 可审计）</span></div>
+    <div class="node input" style="left:760px;top:90px;width:500px;height:56px"><b>同一个需求</b><small>输入不变，输出责任被切清</small></div>
+    <div class="node process" style="left:760px;top:200px;width:156px;height:84px"><b>调度层</b><small>路由 · 责任切分 · 门禁</small></div>
+    <div class="node process" style="left:932px;top:200px;width:156px;height:84px"><b>执行层</b><small>专项角色 · 对抗决策 · 基准校验</small></div>
+    <div class="node process" style="left:1104px;top:200px;width:156px;height:84px"><b>知识层</b><small>审计留痕 · 记忆回流 · 自愈</small></div>
+    <div class="node storage" style="left:760px;top:420px;width:500px;height:84px"><b>可自证的回答</b><small>有基准对照 · 有留痕审计 · 有计量的生产力</small></div>
+    <div class="node external" style="left:760px;top:540px;width:500px;height:48px"><b>人只在决策点介入（HITL），反馈回流闭环</b><small>不是看客，也不是兜底</small></div>
+</div>
+</body>
+</html>

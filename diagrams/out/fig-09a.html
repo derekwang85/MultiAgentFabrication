@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>人在环：人不在流水线里，只在裁决点拉闸</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1080px; height:640px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>人在环：人不在流水线里，只在裁决点拉闸</h1>
+<div class="sub">主张 A5/A6 · 篇9 抽象结构 —— 中央闭环跑路由/执行/复核/回流，人在环外独立裁决位，箭头从裁决点切入</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 640">
+  <polyline points="305.0,280.0 412.5,280.0 520.0,280.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="305.0" cy="280.0" r="2.6" fill="var(--line)"/><circle cx="520.0" cy="280.0" r="3.0" fill="var(--line)"/>
+    <polyline points="520.0,280.0 520.0,460.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="520.0" cy="280.0" r="2.6" fill="var(--line)"/><circle cx="520.0" cy="460.0" r="3.0" fill="var(--line)"/>
+    <rect x="506.8" y="355.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="520.0" y="370.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">复核</text>
+    <polyline points="520.0,460.0 412.5,460.0 305.0,460.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="520.0" cy="460.0" r="2.6" fill="var(--line)"/><circle cx="305.0" cy="460.0" r="3.0" fill="var(--line)"/>
+    <rect x="391.8" y="445.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="405.0" y="460.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">回流</text>
+    <polyline points="305.0,460.0 305.0,280.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="305.0" cy="460.0" r="2.6" fill="var(--line)"/><circle cx="305.0" cy="280.0" r="3.0" fill="var(--line)"/>
+    <rect x="291.8" y="355.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="305.0" y="370.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">闭环</text>
+    <polyline points="925.0,115.0 722.5,115.0 722.5,460.0 520.0,460.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="925.0" cy="115.0" r="2.6" fill="var(--line)"/><circle cx="520.0" cy="460.0" r="3.0" fill="var(--line)"/>
+    <rect x="698.5" y="280.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="722.5" y="295.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">裁决点介入</text>
+  </svg>
+  <div class="zone tinted hl" style="left:160px;top:150px;width:560px;height:440px"><span class="zone-label">流水线闭环 · 自动化主链</span><span class="zone-note">路由 → 执行 → 复核 → 回流，环带里没有人</span></div>
+    <div class="node process" style="left:230px;top:240px;width:150px;height:80px"><b>意图路由</b><small>承接并判方向</small></div>
+    <div class="node process" style="left:430px;top:240px;width:180px;height:80px"><b>执行子 Agent</b><small>无状态跑当下</small></div>
+    <div class="node process" style="left:430px;top:420px;width:180px;height:80px"><b>独立复核</b><small>做对没有，单列一环</small></div>
+    <div class="node process" style="left:230px;top:420px;width:150px;height:80px"><b>教训回流</b><small>把结果送回路由</small></div>
+    <div class="node external" style="left:800px;top:60px;width:250px;height:110px"><b>人 · 环外裁决位</b><small>HITL：只在裁决点拉闸&#10;不盯全程，也不撒手</small></div>
+</div>
+</body>
+</html>

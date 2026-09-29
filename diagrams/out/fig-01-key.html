@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>单点判断器的三层结构性失效：从不可验证到不可追溯</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1320px; height:900px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>单点判断器的三层结构性失效：从不可验证到不可追溯</h1>
+<div class="sub">A1 · 单个 Agent 的信任危机 —— 失效的不是能力，而是可管理性</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 900">
+  <polyline points="220.0,142.0 435.0,142.0 435.0,168.0 650.0,168.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="220.0" cy="142.0" r="2.6" fill="var(--line)"/><circle cx="650.0" cy="168.0" r="3.0" fill="var(--line)"/>
+    <polyline points="650.0,168.0 650.0,298.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="650.0" cy="168.0" r="2.6" fill="var(--line)"/><circle cx="650.0" cy="298.0" r="3.0" fill="var(--line)"/>
+    <polyline points="650.0,298.0 650.0,428.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="650.0" cy="298.0" r="2.6" fill="var(--line)"/><circle cx="650.0" cy="428.0" r="3.0" fill="var(--line)"/>
+    <polyline points="650.0,428.0 650.0,578.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="650.0" cy="428.0" r="2.6" fill="var(--line)"/><circle cx="650.0" cy="578.0" r="3.0" fill="var(--line)"/>
+    <polyline points="650.0,578.0 870.0,578.0 870.0,156.0 1090.0,156.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="650.0" cy="578.0" r="2.6" fill="var(--line)"/><circle cx="1090.0" cy="156.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1090.0,156.0 1090.0,326.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1090.0" cy="156.0" r="2.6" fill="var(--line)"/><circle cx="1090.0" cy="326.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1090.0,326.0 1090.0,496.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1090.0" cy="326.0" r="2.6" fill="var(--line)"/><circle cx="1090.0" cy="496.0" r="3.0" fill="var(--line)"/>
+  </svg>
+  <div class="zone" style="left:30px;top:40px;width:380px;height:760px"><span class="zone-label">输入侧（同一个问题，单 Agent 全包）</span></div>
+    <div class="node input" style="left:70px;top:110px;width:300px;height:64px"><b>同一个复杂问题</b><small>理解 · 拆解 · 执行 · 自检，全部塞进一次前向推理</small></div>
+    <div class="zone" style="left:480px;top:40px;width:340px;height:760px"><span class="zone-label">三层失效（判断不可管理的根因）</span></div>
+    <div class="node risk" style="left:510px;top:120px;width:280px;height:96px"><b>不可验证</b><small>给的是判断，不是证明；要么全信要么推倒</small></div>
+    <div class="node risk" style="left:510px;top:250px;width:280px;height:96px"><b>不可分工</b><small>四环合一，出错无法定位到具体环节</small></div>
+    <div class="node risk" style="left:510px;top:380px;width:280px;height:96px"><b>不可追溯</b><small>无留痕，出错无法复盘，错误悄悄重演</small></div>
+    <div class="node external" style="left:510px;top:540px;width:280px;height:76px"><b>判断不可被管理</b><small>三缺陷叠加的必然结果</small></div>
+    <div class="zone" style="left:890px;top:40px;width:400px;height:760px"><span class="zone-label">输出侧（后果难以追责）</span></div>
+    <div class="node neutral" style="left:930px;top:110px;width:320px;height:92px"><b>给出一个答案（A 或 B）</b><small>但它是哪次采样？基于哪条约束？无从得知</small></div>
+    <div class="node external" style="left:930px;top:280px;width:320px;height:92px"><b>只能靠人盯着试错修补</b><small>事故驱动 · 事后兜底 · 改完还可能复发</small></div>
+    <div class="node external" style="left:930px;top:450px;width:320px;height:92px"><b>信任崩塌</b><small>交付越多，越心慌——因为无法自证</small></div>
+</div>
+</body>
+</html>

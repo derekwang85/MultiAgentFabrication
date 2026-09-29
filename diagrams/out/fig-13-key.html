@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>两层 Agent：造系统的，与在系统里的，记忆各自记账</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1360px; height:780px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>两层 Agent：造系统的，与在系统里的，记忆各自记账</h1>
+<div class="sub">A9 · 双层结构与记忆手递手 —— 元层是工厂，产品层是车间；元层只读 k1+k2，产品层读 k1+k2+k3，经验只沿 k4 单向回流管道（ADR 审计 + 人终裁）升格为规则</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 780">
+  <polyline points="135.0,140.0 230.0,140.0 325.0,140.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="135.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="325.0" cy="140.0" r="3.0" fill="var(--line)"/>
+    <rect x="220.4" y="125.0" width="19.2" height="18.0" rx="4" fill="var(--bg)"/><text x="230.0" y="140.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">拆</text>
+    <polyline points="325.0,140.0 420.0,140.0 515.0,140.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="325.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="515.0" cy="140.0" r="3.0" fill="var(--line)"/>
+    <rect x="410.4" y="125.0" width="19.2" height="18.0" rx="4" fill="var(--bg)"/><text x="420.0" y="140.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">派</text>
+    <polyline points="515.0,140.0 372.5,140.0 372.5,255.0 230.0,255.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="515.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="230.0" cy="255.0" r="3.0" fill="var(--line)"/>
+    <rect x="352.1" y="189.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="372.5" y="204.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">交付待验</text>
+    <polyline points="230.0,255.0 347.5,255.0 465.0,255.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="230.0" cy="255.0" r="2.6" fill="var(--line)"/><circle cx="465.0" cy="255.0" r="3.0" fill="var(--line)"/>
+    <rect x="331.8" y="240.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="345.0" y="255.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">复核</text>
+    <polyline points="465.0,255.0 600.0,255.0 600.0,195.0 735.0,195.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="465.0" cy="255.0" r="2.6" fill="var(--line)"/><circle cx="735.0" cy="195.0" r="3.0" fill="var(--line)"/>
+    <rect x="577.4" y="210.0" width="55.2" height="18.0" rx="4" fill="var(--bg)"/><text x="605.0" y="225.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">下发 P13</text>
+    <polyline points="735.0,195.0 835.0,195.0 835.0,150.0 935.0,150.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="735.0" cy="195.0" r="2.6" fill="var(--line)"/><circle cx="935.0" cy="150.0" r="3.0" fill="var(--line)"/>
+    <rect x="819.6" y="157.5" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="840.0" y="172.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">接入当班</text>
+    <polyline points="935.0,150.0 1015.0,150.0 1095.0,150.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="935.0" cy="150.0" r="2.6" fill="var(--line)"/><circle cx="1095.0" cy="150.0" r="3.0" fill="var(--line)"/>
+    <rect x="819.6" y="135.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="840.0" y="150.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">判别落位</text>
+    <polyline points="1095.0,150.0 1170.0,150.0 1245.0,150.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1095.0" cy="150.0" r="2.6" fill="var(--line)"/><circle cx="1245.0" cy="150.0" r="3.0" fill="var(--line)"/>
+    <rect x="1319.8" y="135.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="1333.0" y="150.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">执行</text>
+    <polyline points="1245.0,150.0 1092.5,150.0 1092.5,265.0 940.0,265.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1245.0" cy="150.0" r="2.6" fill="var(--line)"/><circle cx="940.0" cy="265.0" r="3.0" fill="var(--line)"/>
+    <rect x="1072.1" y="203.5" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="1092.5" y="218.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">每步落账</text>
+    <polyline points="940.0,265.0 1037.5,265.0 1135.0,265.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="940.0" cy="265.0" r="2.6" fill="var(--line)"/><circle cx="1135.0" cy="265.0" r="3.0" fill="var(--line)"/>
+    <rect x="820.6" y="250.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="841.0" y="265.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">只给建议</text>
+    <polyline points="135.0,140.0 160.0,140.0 160.0,520.0 185.0,520.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="135.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="185.0" cy="520.0" r="3.0" fill="var(--line)"/>
+    <rect x="139.6" y="300.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="160.0" y="315.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">读 k1</text>
+    <polyline points="135.0,140.0 300.0,140.0 300.0,520.0 465.0,520.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="135.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="465.0" cy="520.0" r="3.0" fill="var(--line)"/>
+    <rect x="279.6" y="300.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="300.0" y="315.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">读 k2</text>
+    <polyline points="1245.0,150.0 1030.0,150.0 1030.0,545.0 815.0,545.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1245.0" cy="150.0" r="2.6" fill="var(--line)"/><circle cx="815.0" cy="545.0" r="3.0" fill="var(--line)"/>
+    <rect x="1009.6" y="309.5" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="1030.0" y="324.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">读 k3</text>
+    <polyline points="940.0,265.0 1052.5,265.0 1052.5,545.0 1165.0,545.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="940.0" cy="265.0" r="2.6" fill="var(--line)"/><circle cx="1165.0" cy="545.0" r="3.0" fill="var(--line)"/>
+    <rect x="1017.7" y="360.0" width="69.6" height="18.0" rx="4" fill="var(--bg)"/><text x="1052.5" y="375.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">经验 → 待提炼</text>
+    <polyline points="1165.0,545.0 675.0,545.0 675.0,520.0 185.0,520.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="1165.0" cy="545.0" r="2.6" fill="var(--line)"/><circle cx="185.0" cy="520.0" r="3.0" fill="var(--line)"/>
+    <rect x="-119.2" y="517.5" width="170.4" height="18.0" rx="4" fill="var(--bg)"/><text x="-34.0" y="532.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">ADR 审计 + 人终裁&#10;→ 改 k1 规则</text>
+  </svg>
+  <div class="zone" style="left:30px;top:40px;width:600px;height:270px"><span class="zone-label">元层 · 元Agent 建造流水线（开发态）—— 谁是造的</span></div>
+    <div class="node process" style="left:60px;top:100px;width:150px;height:80px"><b>规划角色</b><small>WBS 拆单&#10;带验收口径</small></div>
+    <div class="node process" style="left:250px;top:100px;width:150px;height:80px"><b>资源分配</b><small>可并行的&#10;子任务</small></div>
+    <div class="node process" style="left:440px;top:100px;width:150px;height:80px"><b>无状态执行&#10;子 Agent</b><small>不背历史&#10;只跑当下</small></div>
+    <div class="node process" style="left:150px;top:220px;width:160px;height:70px"><b>隔离三权验证者</b><small>不知修复思路&#10;只看交付合不合规格</small></div>
+    <div class="node risk" style="left:380px;top:220px;width:170px;height:70px"><b>门禁 G1-G7</b><small>拦‘写得像&#10;其实没签字’</small></div>
+    <div class="node storage" style="left:660px;top:140px;width:150px;height:110px"><b>产物下发 P13</b><small>已过检&#10;可直接接入的零件</small></div>
+    <div class="zone" style="left:840px;top:40px;width:490px;height:270px"><span class="zone-label">产品层 · 产品Agent 当班流水线（运行态）—— 在系统里干活的</span></div>
+    <div class="node process" style="left:870px;top:105px;width:130px;height:90px"><b>意图路由器</b><small>来意判别&#10;→ 专家角色</small></div>
+    <div class="node process" style="left:1020px;top:105px;width:150px;height:90px"><b>9 角色注册表</b><small>多 Agent&#10;专家</small></div>
+    <div class="node process" style="left:1180px;top:105px;width:130px;height:90px"><b>顺序链路 /&#10;隔离对抗</b><small>快路径&#10;与对抗并行</small></div>
+    <div class="node storage" style="left:870px;top:230px;width:140px;height:70px"><b>决策库&#10;decision.db</b><small>每步落账</small></div>
+    <div class="node external" style="left:1060px;top:230px;width:150px;height:70px"><b>HITL 人工终裁</b><small>圈外&#10;只建议</small></div>
+    <div class="zone" style="left:30px;top:390px;width:600px;height:330px"><span class="zone-label">k1 规则层 + k2 会话工作记忆 —— 元层与产品层都只读这些</span></div>
+    <div class="node storage" style="left:60px;top:450px;width:250px;height:140px"><b>k1 规则层</b><small>宪章 / 十诫 / 方法论 / 红线&#10;静态 · 文本可审 · 进场必带</small></div>
+    <div class="node storage" style="left:340px;top:450px;width:250px;height:140px"><b>k2 会话工作记忆</b><small>滑动窗口摘要&#10;只管‘这一场’</small></div>
+    <div class="zone" style="left:650px;top:390px;width:330px;height:330px"><span class="zone-label">k3 长期情节记忆 —— 产品层读，元层不信</span></div>
+    <div class="node storage" style="left:680px;top:450px;width:270px;height:190px"><b>k3 长期情节记忆</b><small>偏好 / 策略上下文 / 标的 / 裁决&#10;溯源 · 置信度 · 去重哈希</small></div>
+    <div class="zone" style="left:1000px;top:390px;width:330px;height:330px"><span class="zone-label">k4 跨层回流 —— 唯一一道带锁的窗，只进不出</span></div>
+    <div class="node risk" style="left:1030px;top:450px;width:270px;height:190px"><b>k4 单向回流管道</b><small>经验 → ADR 审计 → 人终裁&#10;→ 升格 k1 · 可回滚</small></div>
+</div>
+</body>
+</html>

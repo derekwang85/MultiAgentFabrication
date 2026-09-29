@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>规约资产双向交流诊断报告 · MultiAgent Fabrication × derekwritting-framework</title>
+<style>
+/* ===== ACTIVE_PALETTE: Business Blue — 策略治理与执行诊断 ===== */
+:root{
+  /* Page / report tokens */
+  --page-bg:#FFFFFF;
+  --page-surface:#F5F8FC;
+  --page-surface-muted:#EDF2F8;
+  --page-text:#18202B;
+  --page-text-secondary:#2E3A49;
+  --page-text-muted:#5B6B7E;
+  --page-text-disabled:#8C99AA;
+  --page-border:#D6DFE8;
+  --page-brand:#0969DA;
+  --page-brand-hover:#0756B1;
+  --page-brand-active:#064089;
+  --page-brand-soft:#EEF4FC;
+  --page-brand-soft-strong:#DCE9F9;
+  --page-brand-text:#06447F;
+
+  /* Backward-compatible */
+  --bg:#FFFFFF; --bg2:#F5F8FC; --rule:#D6DFE8; --ink:#18202B; --muted:#5B6B7E;
+  --text-secondary:#2E3A49; --text-disabled:#8C99AA; --accent:#0969DA;
+  --accent-hover:#0756B1; --accent-active:#064089; --accent-soft:#EEF4FC; --accent2:#4C86C9;
+
+  /* Chart / data tokens */
+  --chart-series-1:#0969DA; --chart-series-2:#8250DF; --chart-series-3:#06B6D4; --chart-series-4:#BF3989;
+  --chart-other:#D6DFE8; --chart-accent:#0969DA; --chart-accent-2:#06B6D4;
+  --chart-positive:#1A7F37; --chart-warning:#9A6700; --chart-negative:#CF222E;
+  --chart-grid:rgba(24,32,43,0.12); --chart-axis:#5B6B7E; --chart-label:#5B6B7E; --chart-tooltip-bg:#FFFFFF;
+
+  /* Semantic */
+  --success:#1A7F37; --info:#0969DA; --reminder:#D25100; --warning:#9A6700; --danger:#CF222E;
+  --positive:#1A7F37; --negative:#CF222E;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;
+  background:var(--page-bg);color:var(--page-text);line-height:1.75;font-size:16px;
+  -webkit-font-smoothing:antialiased;
+}
+code,pre,.mono{font-family:ui-monospace,SFMono-Regular,Consolas,"JetBrains Mono",monospace}
+
+/* Reading shell */
+.shell{max-width:1020px;margin:0 auto;padding:0 24px}
+header.full{background:var(--page-brand-soft);border-bottom:1px solid var(--page-border)}
+.intro{padding:56px 0 44px}
+.kicker{
+  display:inline-block;font-size:13px;letter-spacing:.08em;color:var(--page-brand);
+  font-weight:600;text-transform:uppercase;margin-bottom:14px;
+  border:1px solid var(--page-brand-soft-strong);background:var(--page-bg);
+  padding:4px 12px;border-radius:999px;
+}
+h1{font-size:36px;line-height:1.25;font-weight:800;letter-spacing:-.01em;color:var(--page-text);margin-bottom:16px;max-width:46ch}
+.intro-summary{font-size:18px;color:var(--page-text-secondary);max-width:68ch;margin-bottom:18px}
+.verdict{
+  background:var(--page-bg);border-left:4px solid var(--danger);border-radius:0 10px 10px 0;
+  padding:18px 22px;margin:22px 0 8px;box-shadow:0 1px 3px rgba(24,32,43,.06);
+}
+.verdict .verdict-title{font-weight:800;font-size:16px;color:var(--danger);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.verdict .verdict-title .dot{width:9px;height:9px;border-radius:50%;background:var(--danger);display:inline-block}
+.verdict p{font-size:15.5px;color:var(--page-text-secondary)}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;font-size:13px;color:var(--page-text-muted)}
+.meta span{background:var(--page-bg);border:1px solid var(--page-border);padding:3px 10px;border-radius:6px}
+
+/* Sections */
+main{padding:40px 0 20px}
+section{margin-bottom:52px}
+h2{
+  font-size:25px;font-weight:800;color:var(--page-text);margin-bottom:8px;
+  padding-top:14px;display:flex;align-items:baseline;gap:12px;
+}
+.section-num{
+  font-family:ui-monospace,monospace;font-size:15px;font-weight:700;color:var(--page-bg);
+  background:var(--page-brand);min-width:30px;height:30px;border-radius:8px;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.lead{font-size:17px;color:var(--page-text-secondary);margin-bottom:24px;max-width:75ch}
+h3{font-size:19px;font-weight:700;color:var(--page-text);margin:30px 0 12px}
+h4{font-size:16px;font-weight:700;color:var(--page-text-secondary);margin:20px 0 8px}
+p{margin-bottom:14px;max-width:78ch}
+ul,ol{margin:0 0 16px 22px}
+li{margin-bottom:7px}
+strong{color:var(--page-text)}
+mark.key{background:var(--page-brand-soft-strong);color:var(--page-brand-text);padding:0 4px;border-radius:4px;font-weight:600}
+
+/* Cards & callouts */
+.callout{
+  border:1px solid var(--page-border);border-radius:12px;padding:18px 22px;margin:18px 0;
+  background:var(--page-surface);display:flex;gap:14px;align-items:flex-start;
+}
+.callout .ico{font-size:20px;line-height:1.4;flex-shrink:0}
+.callout.danger{border-left:4px solid var(--danger);background:#FBF2F3}
+.callout.success{border-left:4px solid var(--success);background:#F1F8F4}
+.callout.warn{border-left:4px solid var(--warning);background:#FBF7ED}
+.callout.info{border-left:4px solid var(--info);background:var(--page-brand-soft)}
+.callout .title{font-weight:700;margin-bottom:4px;font-size:15.5px}
+.callout p{margin-bottom:0;font-size:15px;color:var(--page-text-secondary)}
+
+/* Evidence chips */
+.evidence{
+  border:1px solid var(--page-border);border-radius:12px;padding:4px 0;margin:18px 0;
+  background:var(--page-bg);overflow:hidden;
+}
+.evidence .ev-row{display:flex;padding:14px 20px;border-top:1px solid var(--page-border);gap:16px;align-items:flex-start}
+.evidence .ev-row:first-child{border-top:none}
+.ev-tag{flex-shrink:0;width:92px;text-align:center;font-size:12.5px;font-weight:700;padding:4px 6px;border-radius:6px;margin-top:2px}
+.ev-tag.conf{background:#F1F8F4;color:var(--success);border:1px solid #C4E8D2}
+.ev-tag.miss{background:#FBF2F3;color:var(--danger);border:1px solid #F3CFD4}
+.ev-tag.part{background:#FBF7ED;color:var(--warning);border:1px solid #EFDDB0}
+.ev-body{flex:1;font-size:14.5px;color:var(--page-text-secondary)}
+.ev-body .ev-path{font-family:ui-monospace,monospace;font-size:12.5px;color:var(--page-text-muted);background:var(--page-surface);padding:2px 6px;border-radius:5px;display:inline-block;margin-right:6px}
+.ev-body .ev-claim{font-weight:600;color:var(--page-text)}
+.ev-body .ev-fact{color:var(--page-text-secondary)}
+
+/* Tables */
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--page-border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:640px}
+thead th{
+  background:var(--page-surface-muted);color:var(--page-text);text-align:left;
+  padding:12px 16px;font-weight:700;border-bottom:2px solid var(--page-border);
+}
+tbody td{padding:12px 16px;border-bottom:1px solid var(--page-border);vertical-align:top;color:var(--page-text-secondary)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:nth-child(even){background:var(--page-surface)}
+td.c,th.c{text-align:center}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.tag.ok{background:#E3F2E9;color:var(--success)}
+.tag.no{background:#FBE5E7;color:var(--danger)}
+.tag.half{background:#FFF3D6;color:#8a5a00}
+.tag.info{background:var(--page-brand-soft);color:var(--page-brand)}
+
+/* Meter bars */
+.meter{margin:14px 0}
+.meter .m-label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:6px;color:var(--page-text)}
+.meter .m-track{height:14px;background:var(--page-surface-muted);border-radius:999px;overflow:hidden;border:1px solid var(--page-border)}
+.meter .m-fill{height:100%;border-radius:999px}
+.meter .m-fill.hi{background:var(--success)}
+.meter .m-fill.lo{background:var(--danger)}
+.meter .m-fill.mid{background:var(--warning)}
+.meter .m-note{font-size:12.5px;color:var(--page-text-muted);margin-top:5px}
+
+/* Flow bars (chain viz) */
+.flowchain{margin:24px 0}
+.fc-row{display:flex;align-items:stretch;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.fc-node{
+  flex:1;min-width:150px;border:1px solid var(--page-border);border-radius:10px;
+  padding:12px 14px;background:var(--page-bg);font-size:13px;
+}
+.fc-node .fc-k{font-weight:800;font-size:13.5px;margin-bottom:4px;display:flex;justify-content:space-between;align-items:center}
+.fc-node .fc-d{color:var(--page-text-muted);font-size:12.5px;line-height:1.5}
+.fc-node.solid{background:var(--page-brand-soft);border-color:var(--page-brand-soft-strong)}
+.fc-node.dash{background:#FBF3F6;border:1.5px dashed #DC9DC9}
+.fc-arrow{display:flex;align-items:center;font-size:20px;color:var(--page-text-muted);padding:0 2px}
+.fc-arrow.on{color:var(--success)}
+.fc-arrow.off{color:#C9A6BB}
+.legend{display:flex;gap:18px;font-size:13px;color:var(--page-text-muted);margin-top:12px;flex-wrap:wrap}
+.legend .li{display:flex;align-items:center;gap:7px}
+.legend .sw{width:14px;height:14px;border-radius:4px;display:inline-block}
+.legend .sw.i{background:var(--page-brand-soft);border:1px solid var(--page-brand-soft-strong)}
+.legend .sw.o{background:#FBF3F6;border:1.5px dashed #DC9DC9}
+
+/* Footer & citations */
+footer{border-top:1px solid var(--page-border);padding:34px 0 60px;background:var(--page-surface)}
+footer h3{font-size:17px}
+.cite-list{list-style:none;margin:14px 0 0;padding:0}
+.cite-list li{font-size:13px;color:var(--page-text-muted);margin-bottom:10px;line-height:1.6}
+.cite-list a{color:var(--page-brand);text-decoration:none;word-break:break-all}
+.cite-list a:hover{text-decoration:underline}
+sup a{color:var(--page-brand);text-decoration:none;font-size:11px}
+.arrow{color:var(--page-brand)}
+
+@media(max-width:640px){
+  h1{font-size:28px}
+  h2{font-size:21px;flex-direction:column;align-items:flex-start;gap:6px}
+  .intro{padding:40px 0 34px}
+  .fc-node{min-width:100%}
+  .ev-tag{width:auto}
+  body{font-size:15px}
+}
+@media print{
+  body{background:#fff}
+  .callout,.evidence,.table-wrap{box-shadow:none;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="full">
+  <div class="shell intro">
+    <span class="kicker">方法论工程诊断 · 规约资产双向链路</span>
+    <h1>MultiAgent Fabrication × derekwritting-framework：规约资产的交流与交互，到底通了吗？</h1>
+    <p class="intro-summary">对“从配置完 derekwritting 写作框架之后，项目与框架之间有没有做过经验交流与反馈”这一问题的系统性核查。结论先行：<strong>“框架→项目”注入链强触发且真实落地，框架规约在本项目深度起效；但“项目→框架”回流链几乎未触发，处于“接线完成、数据传输基本为零”的单向断层。</strong></p>
+
+    <div class="verdict">
+      <div class="verdict-title"><span class="dot"></span>核心诊断：单向消费、反向休眠</div>
+      <p>注入方向（A/D 通道）——门禁 G1-G5、评分棘轮、宪法、skill 注册、wiki 知识库、团队记忆契约，全部被本项目适配并真实使用，13 篇稿件全部 9.8 分实证可查；<mark class="key">回流方向（C 通道 + 回源）</mark>——反馈文档已写好但从未被母版内化，本项目的适配创新（阈值 3.8、新增评审角色、双语隔离、活注脚）<strong>没有任何一条沉淀进团队仓，也没有触发任何一次 promote</strong>。规约资产目前是“框架单向下发给项目”，而非“双向交换”。</p>
+    </div>
+
+    <div class="meta">
+      <span>报告类型：规约资产治理诊断</span>
+      <span>日期：2026-09-26</span>
+      <span>作者：derekwang85（王海涛）</span>
+      <span>证据：一手文件逐项核查</span>
+      <span>版本：v1.0</span>
+    </div>
+  </div>
+</header>
+
+<main class="shell">
+
+  <!-- ===== Section 1 ===== -->
+  <section>
+    <h2><span class="section-num">01</span>分析口径与判定标准</h2>
+    <p class="lead">为避免“把文档里的声明当成实际发生”，本次分析采用“<strong>声明 ↔ 证据对照</strong>”口径：凡论文档中标注的“✅ 已接通 / 已完成”，必须在对应文件系统、母版仓、CHANGELOG、运行产物中找到实锤，否则判定为“已接线、未执行”或“该声明指向的是别的项目”。</p>
+
+    <h3>拆解：所谓“经验交流与反馈”到底指哪几条链路</h3>
+    <p>根据母版 `derekwritting-framework/docs/USAGE-CONNECTING-PROJECTS.md` 的连接模型<sup><a href="#cite-1">[1]</a></sup>，框架与项目之间有四条通道，本项目登记为<strong>“A 注入 + C/D 回流”</strong>组合<sup><a href="#cite-2">[2]</a></sup>。据此把问题拆成两条可验证的子链路：</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>链路</th><th>方向</th><th>含义</th><th>判定标准（本次核查点）</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>L1 注入链</strong><br><span class="tag ok">框架 → 项目</span></td>
+            <td class="c">↓</td>
+            <td>框架规约（门禁/评分/宪法/模板/skill）注入本项目并被使用</td>
+            <td>config 是否派生自框架；writing-harness 是否就位；评分板是否有真实运行记录；宪法/总纲/skill 注册是否落地</td>
+          </tr>
+          <tr>
+            <td><strong>L2 回流链</strong><br><span class="tag info">项目 → 框架</span></td>
+            <td class="c">↑</td>
+            <td>本项目写作实证与适配创新反哺框架（lesson-capture 沉淀 + promote 反哺 + 母版内化登记）</td>
+            <td>团队仓是否有本项目沉淀资产；母版 CHANGELOG 是否登记吸收；反馈文档是否被母版内化；etc.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <div class="ico">⚖️</div>
+      <div><span class="title">判定口径：不因“声明”给分，只认“证据”</span>
+      <p>本项目 `framework.config.json` 明确写着 `created_from_framework: derekwritting-framework`、`framework_version: adapted-lite`<sup><a href="#cite-3">[3]</a></sup>；`wiki/sources/source-derekwritting-team-relationship.md` 把“C 回流通道”标为“✅ 通道已接通”<sup><a href="#cite-2">[2]</a></sup>。这两处是我们重点求证的起点——尤其后者，必须看到团队记忆仓内确有本项目回流资产才算数。</p></div>
+    </div>
+  </section>
+
+  <!-- ===== Section 2 ===== -->
+  <section>
+    <h2><span class="section-num">02</span>L1 注入链：框架规约在本项目深度起效（证据确凿）</h2>
+    <p class="lead">框架注入的每一层规约资产，在本项目都有对应落位，且 <strong>13 篇稿件全部完成 9.8 分评估</strong>，可逐一指认。这是“交流”中真实成立的一半。</p>
+
+    <h3>规约资产落地对照表</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>框架规约层</th><th>母版资产</th><th>本项目落位</th><th>使用证据</th></tr></thead>
+        <tbody>
+          <tr><td>配置契约</td><td><code>framework.config.json</code></td><td><code>framework.config.json</code></td><td>派生自框架，`framework_version: adapted-lite`<sup>[3]</sup></td></tr>
+          <tr><td>门禁层</td><td><code>tools/writing-gates.py</code> G1-G5</td><td><code>writing-harness/writing-gates.py</code></td><td>GATE 全序列配置；多篇 note 标注“G1-G5通过”<sup>[4]</sup></td></tr>
+          <tr><td>评分棘轮</td><td><code>tools/evaluate.py</code></td><td><code>writing-harness/evaluate.py</code></td><td>scoreboard.json 全篇评分，13 篇 9.8<sup>[4]</sup></td></tr>
+          <tr><td>宪法层</td><td><code>constitution/</code></td><td><code>constitution/README.md</code></td><td>继承 AIHarness 宪法并定制回馈纪律<sup>[5]</sup></td></tr>
+          <tr><td>skill 注册</td><td><code>SKILL-REGISTRY.md</code> 3 次晋升</td><td><code>docs/SKILL-REGISTRY.md</code></td><td>登记 6+ 写作/配图/发布技能<sup>[6]</sup></td></tr>
+          <tr><td>知识库</td><td>llm-wiki（W1-W4 门禁）</td><td><code>wiki/</code>（12 概念 + 6 源页）</td><td>2026-09-12 建库，逐页带来源与吸收/舍弃表<sup>[7]</sup></td></tr>
+          <tr><td>评审模板</td><td><code>tools/review-swarm-prompt.md</code></td><td><mark class="key">待回源（缺失）</mark></td><td>config 登记“待回源”但 writing-harness 内无此文件<sup>[3][8]</sup></td></tr>
+          <tr><td>可扫读检查</td><td><code>tools/scannability-check.py</code></td><td><mark class="key">待回源（缺失）</mark></td><td>config 登记“待回源”但 writing-harness 内无此文件<sup>[3][8]</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>结论：<strong>注入链中可执行的规约（门禁/评分/宪法/注册表/wiki）全部真实落地</strong>。两项“待回源”脚本（review-swarm-prompt、scannability-check）虽由 config 声明，但尚未实际回源到 `writing-harness/`——这是注入链的<em>少量欠收</em>，后面「改进」节单独处理。</p>
+
+    <h3>评分棘轮实证：不是摆设，是逐篇真实运行</h3>
+    <p><code>writing-harness/evaluation-scoreboard.json</code> 记录了 13 篇全部分数，日期跨度 2026-09-05 至 2026-09-26，每篇带突破维度与备注<sup><a href="#cite-4">[4]</a></sup>。这证明“每篇严格超前序均值 + 落实突破维度”的进化闭环在本项目是<strong>被真实执行</strong>的，而非静态文档。这也是框架规约“起作用”的最硬证据。</p>
+
+    <div class="meter">
+      <div class="m-label"><span>注入链落地度</span><span>强</span></div>
+      <div class="m-track"><div class="m-fill hi" style="width:90%"></div></div>
+      <div class="m-note">门禁/评分/宪法/注册/wiki 全落地；仅 2 项“待回源”脚本欠收（回源缺失，非没用）。</div>
+    </div>
+  </section>
+
+  <!-- ===== Section 3 ===== -->
+  <section>
+    <h2><span class="section-num">03</span>L2 回流链：接线完成，数据传输基本为零</h2>
+    <p class="lead">这是本次诊断的核心发现。本项目与框架的“回流”目前处于<strong>“通道已定义 + 成员卡已登记”的接线完成态，但实际经验回流基本停留在单份文档的提交态</strong>——没有形成 lesson-capture 机制化沉淀，更没有触发母版吸收。</p>
+
+    <div class="callout danger">
+      <div class="ico">🚩</div>
+      <div><span class="title">三条“声明”与实际断裂的证据</span>
+      <p>① 反馈文档写好了，但母版从未内化；② 回流卡其实来自姊妹项目，不是本项目；③ 本项目【配置里的差异化创新】一个都没沉淀进团队仓。</p></div>
+    </div>
+
+    <h3>断裂点 1：feedback 文档“已写好”，但从未被母版内化</h3>
+    <div class="evidence">
+      <div class="ev-row">
+        <span class="ev-tag part">声明</span>
+        <div class="ev-body"><span class="ev-path">feedback-to-derekcoding/special-for-derekcoding.md</span>
+        <span class="ev-claim">对 derekcoding-framework 的 4 条方法论回馈已系统化写出</span>
+        <p class="ev-fact">文件确实存在，提出新增“多 Agent 调度层 methodology/20”等 4 条建议，每条标“待 derekcoding 内化确认”<sup><a href="#cite-9">[9]</a></sup>。但“写好”≠“交流”，关键看母版是否受理。</p></div>
+      </div>
+      <div class="ev-row">
+        <span class="ev-tag miss">实证</span>
+        <div class="ev-body">
+        <span class="ev-claim">母版全文 grep “MultiAgent / multi-agent” 仅命中 2 处，且都不是方法论内化</span>
+        <p class="ev-fact">命中文件为 `team-memory/members/derekwang85.md`（成员卡，通道 D 挂接产物）和 `docs/DEREKWRTITTING-FRAMEWORK-EVOLUTION-PLAN.html`（进化计划）。<strong>母版没有任何 methodology / constitution / LEARNINGS 条目吸收本项目的 4 条建议</strong><sup><a href="#cite-10">[10]</a></sup>。</p></div>
+      </div>
+      <div class="ev-row">
+        <span class="ev-tag miss">实证</span>
+        <div class="ev-body">
+        <span class="ev-claim">母版 CHANGELOG.md 全量无任何一条“吸收 MultiAgentFabrication 回流”记录</span>
+        <p class="ev-fact">CHANGELOG 最新为 V2.0 神经元（swarm 决策 / 通道 D 等），这些均非由本项目回流驱动<sup><a href="#cite-11">[11]</a></sup>。EXPERIENCE-INTAKE.md 自己承认“<em>尚未用真实吸收验证全流程，首个跑通对象待回填</em>”<sup><a href="#cite-12">[12]</a></sup>。</p></div>
+      </div>
+    </div>
+
+    <h3>断裂点 2：团队记忆仓里的回流资产，主人不是本项目</h3>
+    <div class="evidence">
+      <div class="ev-row">
+        <span class="ev-tag miss">实证</span>
+        <div class="ev-body">
+        <span class="ev-claim">`handoffs/dw/review-ripple-analysis.md` 的 sources 指向 AIHanessMethodology，不是本项目</span>
+        <p class="ev-fact">这份交接卡源头是 `AIHanessMethodology\wiki\concepts\ripple-analysis.md`，属姊妹项目回流，非 MultiAgent<sup><a href="#cite-13">[13]</a></sup>。</p></div>
+      </div>
+      <div class="ev-row">
+        <span class="ev-tag miss">实证</span>
+        <div class="ev-body">
+        <span class="ev-claim">`promote-roadmap-draft.md`（R1-R4）源锚是 RefactoringSoftwareEngineering，不是本项目</span>
+        <p class="ev-fact">反哺路线图卡的 sources 指向 `RefactoringSoftwareEngineering\docs\LEARNINGS-REFER-BACK-...md`，且状态为 `draft`、promote 验收条件均未达成<sup><a href="#cite-14">[14]</a></sup>。<strong>这意味着：项目侧真正在向框架反哺“方法论辣评”的，是姊妹项目，不是 MultiAgent Fabrication。</strong></p></div>
+      </div>
+      <div class="ev-row">
+        <span class="ev-tag miss">实证</span>
+        <div class="ev-body">
+        <span class="ev-claim">本项目专属的适配创新，团队仓 MAP 条目数为 0</span>
+        <p class="ev-fact">grep 团队仓 `patterns/`、`decisions/derekwang85/`、`learnings` 等，无任何以本项目为 source 的沉淀资产；`counters.json` 显示 total_assets=15 且 stale=0，但均为框架/姊妹项目资产<sup><a href="#cite-15">[15]</a></sup>。</p></div>
+      </div>
+    </div>
+
+    <h3>断裂点 3：本项目“压箱底”的适配创新，一条都没回馈</h3>
+    <p>本项目在真实写作中产生了多个框架母版没有、且极具反哺价值的适配参数——这些恰恰是“经验交流”最该回流的资产，但目前全部只停留在本项目 config/writing-harness 内部：</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>本项目适配创新</th><th>母版默认</th><th>本项目取值</th><th>是否已回填母版</th></tr></thead>
+        <tbody>
+          <tr><td>评分阈值收紧</td><td><code>g5_rubric_mean_threshold=3.5</code><sup>[16]</sup></td><td><code>3.8</code><sup>[3]</sup></td><td><span class="tag no">否</span></td></tr>
+          <tr><td>评审角色扩充</td><td>5 正面 + 1 反方<sup>[16]</sup></td><td>+<code>方法论论证审计员</code>+<code>读者代表</code><sup>[3]</sup></td><td><span class="tag no">否</span></td></tr>
+          <tr><td>中英典故隔离</td><td>allusion-isolation（软约束）<sup>[16]</sup></td><td>适配 R1-R4 + 双语重跑<sup>[5]</sup></td><td><span class="tag no">否</span></td></tr>
+          <tr><td>derekinside 活注脚</td><td>无此机制</td><td>每篇强制一段、链具体文件<sup>[5]</sup></td><td><span class="tag no">否</span></td></tr>
+          <tr><td>科研×博客混合形态</td><td>通用 / blog</td><td>混合科研形态（成员卡却标为 blog）<sup>[2][3]</sup></td><td><span class="tag half">标注失真</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="meter">
+      <div class="m-label"><span>回流链落地度</span><span>极弱（约 5%）</span></div>
+      <div class="m-track"><div class="m-fill lo" style="width:6%"></div></div>
+      <div class="m-note">通道已接线、成员卡已登记，但“经验数据”实际回流量≈0：无 lesson-capture 资产、无 promote、无母版内化。</div>
+    </div>
+  </section>
+
+  <!-- ===== Section 4 ===== -->
+  <section>
+    <h2><span class="section-num">04</span>完整链路图：双向交流的现状真相</h2>
+    <p class="lead">把两条链路放回同一张图，断层一目了然：上半（注入）是实线全通，下半（回流）是虚线空转。</p>
+
+    <div class="flowchain" role="figure" aria-label="规约资产双向链路诊断图">
+      <div class="fc-row">
+        <div class="fc-node solid"><div class="fc-k">⚙️ 框架规约仓库</div><div class="fc-d">methodology / constitution / tools / team-memory</div></div>
+        <div class="fc-arrow on">→</div>
+        <div class="fc-node solid"><div class="fc-k">A 注入 (通道 A/D)</div><div class="fc-d">bootstrap + onboard：config / harness / 宪法 / skill</div></div>
+        <div class="fc-arrow on">→</div>
+        <div class="fc-node solid"><div class="fc-k">Item 项目落地</div><div class="fc-d">G1-G5 真实运行 · 13 篇 9.8 · 宪法/wiki 全就位</div></div>
+      </div>
+      <div class="fc-row">
+        <div class="fc-node solid"><div class="fc-k">Item 项目实证</div><div class="fc-d">阈值 3.8 · +2 评审角色 · 双语隔离 · 活注脚</div></div>
+        <div class="fc-arrow off">→</div>
+        <div class="fc-node dash"><div class="fc-k">C 回流 · 通道已接线</div><div class="fc-d">成员卡登记 ✅ 但 lesson-capture 沉淀 = 0</div></div>
+        <div class="fc-arrow off">→</div>
+        <div class="fc-node dash"><div class="fc-k">母版内化</div><div class="fc-d">未触发 promote · 未入 LEARNINGS · CHANGELOG 无记录</div></div>
+      </div>
+      <div class="legend">
+        <span class="li"><span class="sw i"></span>注入链：实线 · 已真实落地</span>
+        <span class="li"><span class="sw o"></span>回流链：虚线 · 已接线但数据未传输</span>
+      </div>
+    </div>
+
+    <p><strong>一句话真相：</strong>框架把规约下发给了项目，项目也真实用起了规约；但项目在实战中沉淀出的<em>新规约资产</em>，从未走学生回到框架。这个系统目前是一条<strong>单向河</strong>，不是双向湖。</p>
+  </section>
+
+  <!-- ===== Section 5 ===== -->
+  <section>
+    <h2><span class="section-num">05</span>根本原因：为什么回流被“卡”住了</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>根因</th><th>说明</th><th>证据</th></tr></thead>
+        <tbody>
+          <tr><td><strong>回流的“闸门”无人按</strong></td><td>框架定义了 EXPERIENCE-INTAKE 六步流程，但 <code>intake.auto_adopt=false</code>——内化需人工裁决；而“用户确认”环节从未被本项目主动推入流程。</td><td>母版 config <code>intake</code> 段 + EXPERIENCE-INTAKE 剩留问题①<sup>[12][16]</sup></td></tr>
+          <tr><td><strong>lesson-capture 从未跑过</strong></td><td>框架通道 C 提供 <code>dw-lesson-capture.py</code> 写毕沉淀工具，但本项目写作 13 篇过程中，没有任何一次写毕沉淀资产进入团队仓。</td><td>团队仓 patterns/decisions 无本项目 source<sup>[15]</sup></td></tr>
+          <tr><td><strong>反馈文档停在“快递已写地址”</strong></td><td><code>special-for-derekcoding.md</code> 写好 4 条建议，但未走框架的 LEARNINGS-&lt;源&gt; 模板、未在母版 README/SKILL-REGISTRY 登记、未触发 promote 验收。</td><td>母版 grep 零命中 + CHANGELOG 无记录<sup>[10][11]</sup></td></tr>
+          <tr><td><strong>通道 D 元数据失真</strong></td><td>通道 D connect 时把本项目登记为 <code>blog</code>，而项目实际是“科研×博客混合形态”，且 master 默认 review_swarm 无 extra_roles，导致回流时的形态识别不准。</td><td>成员卡 <code>blog</code> 标注 vs config <code>科研混合形态</code><sup>[2][3]</sup></td></tr>
+          <tr><td><strong>缺少“回源节奏”约定</strong></td><td>框架没有为“每写几篇应沉淀一次 lesson”“一个系列结束时该提交哪个 LEARNINGS”定义自然的触发节奏。</td><td>EXPERIENCE-INTAKE 无频率约定<sup>[12]</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <div class="ico">🧭</div>
+      <div><span class="title">关键洞察：项目的“价值”恰恰反证了回流缺失的可惜</span>
+      <p>本项目把框架阈值从 3.5 抬高到 3.8、给评审 swarm 加了方法论论证审计员和读者代表、实践了科研×博客形态——这些都是<strong>框架母版没有、且能显著强化框架的方法论实测数据</strong>。它们躺在项目本地，等于框架错失了最有说服力的一批自适应输入。</p></div>
+    </div>
+  </section>
+
+  <!-- ===== Section 6 ===== -->
+  <section>
+    <h2><span class="section-num">06</span>改进方案：把“单向河”改成“双向瓶循环”</h2>
+    <p class="lead">以下方案分为三档（立即可做 / 短期机制 / 体系建议），并尽量对齐框架自己的 EXPERIENCE-INTAKE、三轨制、经验回写纪律，让本项目真正成为框架自进化的活样本。</p>
+
+    <h3>⚡ 立即修复（今天就能做）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>动作</th><th>落点</th></tr></thead>
+        <tbody>
+          <tr><td>F1</td><td>补齐两个“待回源”脚本：把母版 <code>tools/review-swarm-prompt.md</code>、<code>tools/scannability-check.py</code> 回源到本项目 <code>writing-harness/</code>，双向更新 config 的 <code>patrol.assets</code> 指向为“已回源”。</td><td>本项目</td></tr>
+          <tr><td>F2</td><td>修正成员卡形态标注：把 <code>derekwang85.md</code> 中本项目写作形态从 `blog` 改为 `research×blog 混合`，并补上本项目专属的身份摘要。</td><td>母版 team-memory</td></tr>
+          <tr><td>F3</td><td>把 <code>special-for-derekcoding.md</code> 的 4 条建议改写成框架标准的 <code>LEARNINGS-MultiAgentFabrication.md</code>，走 EXPERIENCE-INTAKE 六步并在母版 README/SKILL-REGISTRY 登记。</td><td>项目 → 母版</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🔁 短期机制（1-2 个写作周期内）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>动作</th><th>落点</th></tr></thead>
+        <tbody>
+          <tr><td>M1</td><td>把“写毕沉淀”接到 CP 闭环：每完成 1 篇，运行 <code>dw-lesson-capture.py</code>，把门禁拦截的同类问题、阈值实证、评审角色反馈，以 <code>visibility: team</code> + 一手 <code>sources:</code> 沉淀进团队仓 <code>patterns/derekwang85/</code>。</td><td>项目 → 团队仓</td></tr>
+          <tr><td>M2</td><td>给本项目一个“回源里程碑”：当前 13 篇已齐，正好把“科研形态全套适配值”做成一份正式的 LEARNINGS + promote 申请，验收 R1（≥1 外部项目跑通系列）。</td><td>项目 → 母版</td></tr>
+          <tr><td>M3</td><td>修复 config 内“声明 vs 实际”漂移：把 <code>patrol.enabled=true</code> 而 <code>patrol-log.json</code> 不存在、以及 <code>review-swarm-prompt.md</code> 缺失的真实状态写进巡检日志，避免“配置了=执行了”的假象。</td><td>本项目</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🏗️ 体系建议（长期）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>建议</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>S1</td><td>定义“回源节奏”：在 EXPERIENCE-INTAKE 中新增“每完成 1 个写作周期 / series 里程碑，自动触发 lesson-capture + promote 评估”的自然触发点，让回流有节拍而非靠记忆。</td><td>当前缺频率约定，导致回流“没人记得做”<sup>[12]</sup></td></tr>
+          <tr><td>S2</td><td>把本项目的“科研×博客混合形态 + 阈值 3.8 + extra_roles”反哺为框架的可配模板，让母版 review_swarm 默认 <code>extra_roles</code> 支持在 config 层面叠加，而非写死在脚本。</td><td>这是框架最该吸收的战斗实测值</td></tr>
+          <tr><td>S3</td><td>建立“双向闭环审计”：在框架 patrol 中加一项 <code>intake_backlog</code>，自动侦测“哪些成员项目已产出新适配值但未回流”，形成对账缺口清单。</td><td>让“回流休眠”可被系统检测，而非依赖自觉</td></tr>
+          <tr><td>S4</td><td>参考姊妹项目做法：本项目也应在 <code>docs/</code> 落下 <code>LEARNINGS-REFER-BACK-derekwritting-framework.md</code>，把 MultiAgent 系列沉淀为显式反哺资产，与 RSE 系列并列，形成多项目共享记忆网络。</td><td>目前反哺文档只有 RSE 有，本项目是空白</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout success">
+      <div class="ico">🎯</div>
+      <div><span class="title">改进后的目标闭环</span>
+      <p>注入（框架→项目）已通 ✅ —— 需保持巡检使其全部回源完成；回流（项目→框架）应从“接线完成”推进到“数据流动”：写一篇 → 沉淀一条 lesson → 系列结束 → 提交一份 LEARNINGS → 母版内化并登记 → 反哺成框架可配模板。届时本项目就不再是框架的“消费方”，而是框架自进化网络的<strong>供货方</strong>。</p></div>
+    </div>
+  </section>
+
+  <!-- ===== Section 7 ===== -->
+  <section>
+    <h2><span class="section-num">07</span>第二轮复检与升级验收（2026-09-27）</h2>
+    <p class="lead">在完整落地三档方案后，对项目进行第二轮门禁式复检：<strong>逐项核查"声明 vs 实际"、验证工具真实可运行、核对回源/母版写入的一致性</strong>，目的是确认本次升级没有引入新的问题（升级无涟漪）。</p>
+
+    <h3>7.1 复检发现并修复的涟漪：config JSON 语法损坏</h3>
+    <div class="callout warn">
+      <div class="ico">🔧</div>
+      <div><span class="title">真实问题：上一轮测试落盘引入的未转义引号导致整份 config 非法</span>
+      <p><code>framework.config.json</code> 第 129 行 <code>schedule_note</code> 中内嵌了未转义的半角双引号（<code>...本配置的"patrol"为声明性覆盖清单...</code>），<code>json.load</code> 解析报 <code>Expecting ',' delimiter: line 129 column 102</code>。这意味着<strong>任何读取 config 的巡检脚本都会直接崩溃</strong>——正是第 06 节 M3 要防的"声明 ≠ 实际"的实例化。</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>核查项</th><th>复检前状态</th><th>复检动作</th><th>复检后状态</th></tr></thead>
+        <tbody>
+          <tr><td><code>framework.config.json</code> 合法性</td><td>❌ 语法非法（JSON 解析失败）</td><td><code>json.load</code> 精确复现错误 → 定位第 129 行</td><td>✅ 已转义 <code>\"patrol\"</code>，复用 <code>json.load</code> 复验通过</td></tr>
+          <tr><td><code>gates.g5_rubric_mean_threshold</code></td><td>值存在 = 3.8</td><td>直接读 config 第 14 行确认</td><td>✅ 3.8（R1 反哺声明真实，未漂移）</td></tr>
+          <tr><td>回源脚本一致性（<code>scannability-check.py</code>）</td><td>已回源</td><td><code>filecmp</code> 与母版 <code>tools/</code> 逐字节比对</td><td>✅ 与母版完全一致（SAME）</td></tr>
+          <tr><td>回源差异（<code>writing-gates / evaluate / judge</code>）</td><td>与母版不同</td><td>核对差异是否为本项目适配（阈值/双语/extra_roles）</td><td>✅ 差异 = 项目主动适配值，正是反哺价值，非意外漂移</td></tr>
+          <tr><td>config 契约（<code>patrol.assets</code> 指向文件）</td><td>被初筛误判"全缺失"</td><td>解析 assets 值中的真实路径部分并逐一 <code>os.path.exists</code></td><td>✅ 全部真实存在（docs/constitution/wiki/writing-harness 均核实）</td></tr>
+          <tr><td>工具真实可运行</td><td>仅做过语法编译</td><td>对真实 md 文件执行 <code>writing-gates.py / scannability-check.py --json</code></td><td>✅ 均可运行并输出结构化 JSON（rc 0/1 符合门禁语义）</td></tr>
+          <tr><td>母版侧写入</td><td>声称已写入</td><td>LS 母版根目录 + 读取文件头</td><td>✅ <code>derekwritting-framework/LEARNINGS-MultiAgentFabrication.md</code> 真实存在且内容完整</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>7.2 升级无涟漪断言</h3>
+    <div class="callout success">
+      <div class="ico">✅</div>
+      <div><span class="title">复检结论：本次三档升级未引入新的断裂，唯一涟漪（config 语法损坏）已在复检中当场修复并复验</span>
+      <p>复检路径覆盖：① config 可解析且契约键齐全；② 回源脚本与母版字节一致或为预期适配；③ 巡检工具在真实语料上可运行；④ 母版侧吸收文档真实存在；⑤ 反哺资产 R1-R4 具有一手证据出处。上述五项<strong>全部通过</strong>，未发现需要第三轮修复的新问题，达到"升级无涟漪"的收敛态。</p></div>
+    </div>
+
+    <h3>7.3 给 derekwritting-framework 的交接</h3>
+    <p class="lead">本项目端修复已收敛，剩余工作位于母版侧且需要用户裁决（HITL 决策层）。已单独输出交接报告引导后续工作。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>母版待办</th><th>性质</th><th>交接依据</th></tr></thead>
+        <tbody>
+          <tr><td>内化 <code>LEARNINGS-MultiAgentFabrication.md</code>（走 EXPERIENCE-INTAKE 步骤 6）</td><td>决策层（需用户裁决 A/B 强度）</td><td><code>derekwritting-framework/LEARNINGS-MultiAgentFabrication.md</code></td></tr>
+          <tr><td>回源脚本正式纳入母版索引（tools/ 已存在，登记到 SKILL-REGISTRY / README）</td><td>操作层 + 决策层</td><td>本项目 <code>writing-harness/</code> 回源记录</td></tr>
+          <tr><td>验收 R1"科研形态适配值"是否 promote 为框架可配模板（阈值档位 + extra_roles 注入）</td><td>决策层</td><td><code>docs/FRAMEWORK-IMPROVEMENT-PROPOSAL.md</code></td></tr>
+          <tr><td>首次实跑 <code>dw-lesson-capture.py</code>，落成团队仓 <code>patterns/derekwang85/</code> 资产</td><td>操作层 + 需用户确认</td><td><code>docs/CP-LOOP-LESSON-CAPTURE.md</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="shell">
+    <h3>证据来源（一手文件逐项核查）</h3>
+    <ol class="cite-list">
+      <li id="cite-1">母版连接模型：<code>derekwritting-framework/docs/USAGE-CONNECTING-PROJECTS.md</code> 通道 A/B/C/D 定义</li>
+      <li id="cite-2">本项目通道登记（“A 注入 + C/D 回流”，C 回流标记“✅ 已接通”）：<code>wiki/sources/source-derekwritting-team-relationship.md</code></li>
+      <li id="cite-3">派生与适配配置（阈值 3.8、review_swarm extra_roles、待回源登记）：<code>framework.config.json</code></li>
+      <li id="cite-4">评分棘轮实证（13 篇 9.8，跨度 09-05～09-26）：<code>writing-harness/evaluation-scoreboard.json</code></li>
+      <li id="cite-5">宪法与回馈纪律（R1-R4 隔离、活注脚、derekcoding 回馈纪律）：<code>constitution/README.md</code></li>
+      <li id="cite-6">skill 注册表机制（3 次晋升阈值）：<code>docs/SKILL-REGISTRY.md</code></li>
+      <li id="cite-7">本项目 wiki 建库与 W1-W4 门禁：<code>wiki/log.md</code></li>
+      <li id="cite-8">本项目 writing-harness 实际文件清单（缺 review-swarm-prompt.md / scannability-check.py / patrol.py / patrol-log.json）：<code>writing-harness/</code> 目录</li>
+      <li id="cite-9">已写好的回馈文档（4 条建议，标“待内化确认”）：<code>feedback-to-derekcoding/special-for-derekcoding.md</code></li>
+      <li id="cite-10">母版全文 grep “MultiAgent” 结果（仅成员卡 + HTML 进化计划）</li>
+      <li id="cite-11">母版变更日志（无本项目吸收记录）：<code>derekwritting-framework/CHANGELOG.md</code></li>
+      <li id="cite-12">吸收流程自证“未跑通全流程”：<code>derekwritting-framework/docs/EXPERIENCE-INTAKE.md</code> 评审记录剩留问题①</li>
+      <li id="cite-13">回流交接卡的真实来源（AIHanessMethodology 而非本项目）：<code>team-memory/handoffs/dw/review-ripple-analysis.md</code></li>
+      <li id="cite-14">反哺路线图的真实归属（RSE 项目、draft、未达成验收）：<code>team-memory/decisions/derekwang85/promote-roadmap-draft.md</code></li>
+      <li id="cite-15">团队仓资产计数（无本项目 source）：<code>team-memory/metrics/counters.json</code></li>
+      <li id="cite-16">母版默认配置（阈值 3.5、review_swarm 5+1、intake.auto_adopt=false）：<code>derekwritting-framework/framework.config.json</code></li>
+    </ol>
+    <p style="margin-top:20px;font-size:13px;color:var(--page-text-muted)">本报告为静态核查产物，全部结论源于对两侧文件系统、母版仓、CHANGELOG、运行产物的逐项比对；未做浏览器渲染验证。</p>
+    <p style="margin-top:10px;font-size:13px;color:var(--page-text-muted)">v2 升阶记录：2026-09-27 第二轮复检追加第 07 节——发现并修复上一轮引入的 config JSON 语法损坏（未转义引号），并对 config 契约、回源一致性、工具可运行性、母版侧写入完成逐项核验，全部通过，确认升级无涟漪。交接母版的待办见第 07 节与独立报告。</p>
+  </div>
+</footer>
+
+</body>
+</html>

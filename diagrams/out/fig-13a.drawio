@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" agent="MultiAgentFabrication" version="24.0.0">
+<diagram id="maf" name="Page-1">
+<mxGraphModel dx="1300" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1080" pageHeight="940" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="zmeta" value="元层工厂 · 造系统&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;元 Agent 拆单 / 派活 / 验收&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="100" y="60" width="800" height="220" as="geometry"/></mxCell>
+<mxCell id="m1" value="规划 · WBS&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;拆单自带验收口径&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="160" y="120" width="180" height="90" as="geometry"/></mxCell>
+<mxCell id="m2" value="分配资源&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;可并行的子任务&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="420" y="120" width="180" height="90" as="geometry"/></mxCell>
+<mxCell id="m3" value="隔离验收&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;三权在元层闭环&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="680" y="120" width="180" height="90" as="geometry"/></mxCell>
+<mxCell id="zhandoff" value="产物下发 · 只走单向&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;k4 单向回流喉口&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="200" y="330" width="600" height="80" as="geometry"/></mxCell>
+<mxCell id="zprod" value="产品层车间 · 在系统里干活&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;产品 Agent 当班按 k 记忆运转&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="100" y="500" width="800" height="220" as="geometry"/></mxCell>
+<mxCell id="p1" value="意图路由&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;判来意 → 落角色&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="160" y="560" width="180" height="90" as="geometry"/></mxCell>
+<mxCell id="p2" value="产品 Agent 当班&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;只读自己的 k 层&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="420" y="560" width="180" height="90" as="geometry"/></mxCell>
+<mxCell id="p3" value="留痕与复盘&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;经验攒在产品层&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="680" y="560" width="180" height="90" as="geometry"/></mxCell>
+<mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="m1" target="m2"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="m2" target="m3"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e2" value="下发 P13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;labelBackgroundColor=#f8fafc;fontSize=11;" edge="1" parent="1" source="m3" target="zhandoff"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e3" value="k4 单向" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;dashed=1;strokeColor=#94a3b8;labelBackgroundColor=#f8fafc;fontSize=11;" edge="1" parent="1" source="zhandoff" target="p2"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="p1" target="p2"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="p2" target="p3"><mxGeometry relative="1" as="geometry"/></mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

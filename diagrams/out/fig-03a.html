@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>三轨与三权构成制衡几何：中心判断，三足分立</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1500px; height:720px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>三轨与三权构成制衡几何：中心判断，三足分立</h1>
+<div class="sub">主张 A2 · 篇 3 抽象结构 —— 判断主体在中心，报告 / 修复 / 验证三足等距不共线，串行隔离时间</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 720">
+  <polyline points="750.0,135.0 750.0,395.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="750.0" cy="135.0" r="2.6" fill="var(--line)"/><circle cx="750.0" cy="395.0" r="3.0" fill="var(--line)"/>
+    <rect x="736.8" y="240.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="750.0" y="255.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">上报</text>
+    <polyline points="750.0,395.0 530.0,395.0 530.0,525.0 310.0,525.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="750.0" cy="395.0" r="2.6" fill="var(--line)"/><circle cx="310.0" cy="525.0" r="3.0" fill="var(--line)"/>
+    <rect x="516.8" y="455.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="530.0" y="470.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">修复</text>
+    <polyline points="750.0,395.0 990.0,395.0 990.0,525.0 1230.0,525.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="750.0" cy="395.0" r="2.6" fill="var(--line)"/><circle cx="1230.0" cy="525.0" r="3.0" fill="var(--line)"/>
+    <rect x="976.8" y="455.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="990.0" y="470.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">验证</text>
+    <polyline points="1230.0,525.0 990.0,525.0 990.0,135.0 750.0,135.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="1230.0" cy="525.0" r="2.6" fill="var(--line)"/><circle cx="750.0" cy="135.0" r="3.0" fill="var(--line)"/>
+    <rect x="969.6" y="315.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="990.0" y="330.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">串行复核</text>
+  </svg>
+  <div class="zone tinted" style="left:100px;top:60px;width:1300px;height:600px"><span class="zone-label">三权制衡几何</span><span class="zone-note">每一足都通向中心判断主体</span></div>
+    <div class="node storage" style="left:620px;top:90px;width:260px;height:90px"><b>报告 R</b><small>只负责如实上报，不负责改</small></div>
+    <div class="node process" style="left:620px;top:330px;width:260px;height:130px"><b>判断主体</b><small>汇总三足证据，作最终裁断</small></div>
+    <div class="node process" style="left:180px;top:480px;width:260px;height:90px"><b>修复 F</b><small>只负责消除根因</small></div>
+    <div class="node external" style="left:1100px;top:480px;width:260px;height:90px"><b>验证 V</b><small>只负责用可复现基准裁断</small></div>
+</div>
+</body>
+</html>

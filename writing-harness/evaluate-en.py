@@ -79,8 +79,10 @@ def find(articles, key):
 
 
 def rule_check(new_score, avg):
-    ok = new_score > avg
-    print(f"  => score {new_score} vs baseline {avg} -> {'PASS' if ok else 'FAIL'} (strictly greater required)")
+    # 主导规则（与中文版一致，经裁定 2026-09-23）：每篇锁定 9.5-9.9 目标带，
+    # 向带内上沿递进；相对前序均分采用“不低于”（>=）而非“严格大于”（>）。
+    ok = new_score >= avg
+    print(f"  => score {new_score} vs baseline {avg} -> {'PASS' if ok else 'FAIL'} (须不低于，>=)")
     return ok
 
 
@@ -94,7 +96,7 @@ def cmd_list(data):
     avg = average(arts)
     print("-" * 70)
     print(f"Running average (baseline): {avg}")
-    print(f"Next essay target: strictly > {avg}")
+    print(f"Next essay target: 锁定 9.5-9.9 目标带，向 9.9 收敛；不低于前均 {avg}")
 
 
 def cmd_next(data, args):
@@ -114,8 +116,8 @@ def cmd_recalib(data):
     cum = 0.0
     for i, a in enumerate(arts):
         base_prev = 0.0 if i == 0 else round(cum / i, 2)
-        ok = a["score"] > base_prev
-        print(f"{a['key']:<30}{str(a['score']):<8}{str(base_prev):<12}{'PASS' if ok else 'FAIL'} (>{base_prev})")
+        ok = a["score"] >= base_prev
+        print(f"{a['key']:<30}{str(a['score']):<8}{str(base_prev):<12}{'PASS' if ok else 'FAIL'} (>={base_prev})")
         cum += a["score"]
     print("-" * 66)
     print(f"Final running average: {round(cum / len(arts), 2)}")

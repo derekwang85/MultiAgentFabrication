@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>熵的两重起源，被同一条生产管理带收容</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1500px; height:700px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>熵的两重起源，被同一条生产管理带收容</h1>
+<div class="sub">主张 A1 · 序章抽象结构 —— 不可判定域 → 管理转化带 → 可仲裁域：单点失效被分工收容</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 700">
+  <polyline points="230.0,542.0 447.5,542.0 447.5,271.0 665.0,271.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="230.0" cy="542.0" r="2.6" fill="var(--line)"/><circle cx="665.0" cy="271.0" r="3.0" fill="var(--line)"/>
+    <rect x="434.3" y="391.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="447.5" y="406.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">转化</text>
+    <polyline points="665.0,271.0 717.5,271.0 717.5,416.0 770.0,416.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="665.0" cy="271.0" r="2.6" fill="var(--line)"/><circle cx="770.0" cy="416.0" r="3.0" fill="var(--line)"/>
+    <polyline points="770.0,416.0 825.0,416.0 825.0,271.0 880.0,271.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="770.0" cy="416.0" r="2.6" fill="var(--line)"/><circle cx="880.0" cy="271.0" r="3.0" fill="var(--line)"/>
+    <rect x="811.8" y="326.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="825.0" y="341.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">复核</text>
+    <polyline points="815.0,559.0 1067.5,559.0 1067.5,243.0 1320.0,243.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="815.0" cy="559.0" r="2.6" fill="var(--line)"/><circle cx="1320.0" cy="243.0" r="3.0" fill="var(--line)"/>
+    <rect x="1054.3" y="388.0" width="26.4" height="18.0" rx="4" fill="var(--bg)"/><text x="1067.5" y="403.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">计价</text>
+  </svg>
+  <div class="zone tinted hl" style="left:40px;top:60px;width:380px;height:620px"><span class="zone-label">不可判定域</span><span class="zone-note">自指与不可判定的熵从这里涌出</span></div>
+    <div class="node risk" style="left:80px;top:180px;width:300px;height:84px"><b>单点判断器</b><small>输入一次 · 答案一次 · 无人复核</small></div>
+    <div class="node risk" style="left:80px;top:336px;width:300px;height:84px"><b>自指判定环</b><small>自己证明自己，环内无解</small></div>
+    <div class="node risk" style="left:80px;top:500px;width:300px;height:84px"><b>熵·两重起源</b><small>单点失效 + 无法追溯</small></div>
+    <div class="zone tinted" style="left:500px;top:60px;width:560px;height:620px"><span class="zone-label">管理带 · 转化</span><span class="zone-note">承接不可判，转为可分工</span></div>
+    <div class="zone" style="left:548px;top:150px;width:464px;height:505px"><span class="zone-label">分工收容</span><span class="zone-note">把单点职责切成可指认的块</span></div>
+    <div class="node process" style="left:580px;top:230px;width:170px;height:82px"><b>拆判</b><small>把大判断拆成小步</small></div>
+    <div class="node process" style="left:790px;top:230px;width:180px;height:82px"><b>归口裁决</b><small>每一步都有人为结果负责</small></div>
+    <div class="node process" style="left:580px;top:370px;width:380px;height:92px"><b>分工执行</b><small>并行可复核，不再依赖单点</small></div>
+    <div class="node process" style="left:700px;top:520px;width:230px;height:78px"><b>复核回流</b><small>结果回头再校验</small></div>
+    <div class="zone tinted" style="left:1120px;top:60px;width:380px;height:620px"><span class="zone-label">可仲裁域</span><span class="zone-note">责任与基线落成可查台账</span></div>
+    <div class="node storage" style="left:1160px;top:200px;width:320px;height:86px"><b>仲裁基线</b><small>可复现的裁断标准</small></div>
+    <div class="node storage" style="left:1160px;top:346px;width:320px;height:86px"><b>责任台账</b><small>谁做了什么，一笔一笔记下</small></div>
+    <div class="node storage" style="left:1160px;top:510px;width:320px;height:84px"><b>分工契约</b><small>可回查、可追责的约束</small></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" agent="MultiAgentFabrication" version="24.0.0">
+<diagram id="maf" name="Page-1">
+<mxGraphModel dx="1300" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1060" pageHeight="820" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="zchain" value="判断主链&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;决策 → 留痕 → 回流&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="60" y="120" width="400" height="520" as="geometry"/></mxCell>
+<mxCell id="c1" value="一次决策&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;判断发生的地方&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="120" y="200" width="260" height="90" as="geometry"/></mxCell>
+<mxCell id="c2" value="留痕记录&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;谁判的 · 依据什么 · 怎么复核&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="120" y="360" width="260" height="90" as="geometry"/></mxCell>
+<mxCell id="c3" value="回流成规&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;把账本里的结论编译回规则&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="120" y="520" width="260" height="80" as="geometry"/></mxCell>
+<mxCell id="zledger" value="账本层 · 侧挂&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;随主链留痕，可随时回放来路&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="520" y="120" width="400" height="520" as="geometry"/></mxCell>
+<mxCell id="l1" value="decision.db&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;结构化决策缓存&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#99f6e4;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="590" y="200" width="260" height="90" as="geometry"/></mxCell>
+<mxCell id="l2" value="审计链 · 可回放&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;每一步都有快照&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#99f6e4;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="590" y="360" width="260" height="90" as="geometry"/></mxCell>
+<mxCell id="l3" value="忘掉的熵&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;没留痕的判断即丢失&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fecaca;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="590" y="520" width="260" height="80" as="geometry"/></mxCell>
+<mxCell id="e0" value="留痕" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;labelBackgroundColor=#f8fafc;fontSize=11;" edge="1" parent="1" source="c1" target="c2"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="c2" target="c3"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e2" value="入账" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;labelBackgroundColor=#f8fafc;fontSize=11;" edge="1" parent="1" source="c2" target="l1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e3" value="回放" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;labelBackgroundColor=#f8fafc;fontSize=11;" edge="1" parent="1" source="l2" target="c3"><mxGeometry relative="1" as="geometry"/></mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

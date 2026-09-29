@@ -45,6 +45,33 @@ G6 发布门禁 ── 涟漪 + 上线检查（发布前最后一道）
 
 ---
 
+## G0a · 量纲门禁（公开发表字数）
+
+> 2026-09-24 新增。硬性：**公开发表时会去掉的两 part 不计入正文量纲**，正文必须自己撑到目标字数。
+
+序列每篇正文末尾附两 part——「第一天就能用的清单」（中文）/「Takeaway」（英文），以及「附：门禁评审记录」/「Appendix: Gate Review Record」。这两 part 是工程留痕，公开发表时会剥离，因此**不计入字数**。
+
+正文量纲以去掉这两 part 后的"已发布正文"为准：
+
+| 语种 | 指标 | 硬阈值 | 目标 |
+|------|------|:---:|:---:|
+| 中文 | 已发布正文汉字数（不含清单 + 门禁评审两 part） | ≥ 2800 | ~3000 |
+| 英文 | 已发布正文单词数（不含 Takeaway + Appendix 两 part） | ≥ 1900 | ~2000 |
+
+剥离规则以正文中第一个 strip 标记为界截断计数。计数工具与硬门禁：
+
+```bash
+# 全量复核（根目录）
+python scripts/body_wordcount.py --all
+# 单篇
+python scripts/body_wordcount.py articles/01-trust-crisis.zh.md
+python scripts/body_wordcount.py articles/en/01-trust-crisis.en.md
+```
+
+**反注水纪律**：扩正文不是堆字数。每个新增模块必须满足"删掉它 → 主线论证就少一环"；新增数字必须带来源标记（中文 `[内部项目实测]` / `[实测]`，英文 `[ORIGINAL DATA]`）并通过 G3/G4 事实与链接门禁。
+
+---
+
 ## G1 · 风格门禁（完稿初筛）
 
 检查 AI 味 / 信号词密度。

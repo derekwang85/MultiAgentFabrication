@@ -1,0 +1,36 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "note": "MultiAgentFabrication 巡检日志（patrol-log）。本文件由外部定时巡检/手动巡检生成与更新。2026-09-26 建档：修复 config 'patrol.enabled=true 但本文件不存在' 的声明确实漂移。母版 derekwritting-framework 全仓无 patrol.py，巡检为'声明性资产覆盖清单 + 外部调度器逐项调用既有工具（writing-gates.py / evaluate.py / scannability-check.py）'，非单一进程。"
+  },
+  "last_run": "2026-09-26",
+  "runs": [
+    {
+      "id": "init-20260926",
+      "date": "2026-09-26",
+      "trigger": "manual-bootstrap",
+      "summary": "建档巡检：登记全资产清单状态，标记正式巡检待外部调度触发",
+      "assets_checked": {
+        "docs/SKILL-REGISTRY.md": { "status": "present", "note": "已核实存在" },
+        "constitution/allusion-isolation.md": { "status": "present", "note": "已核实存在" },
+        "constitution/README.md": { "status": "present", "note": "已核实存在" },
+        "wiki/index.md": { "status": "present", "note": "已核实存在" },
+        "wiki/AGENTS.md": { "status": "present", "note": "已核实存在" },
+        "writing-harness/writing-gates.py": { "status": "present", "note": "G1-G5 执行器存在" },
+        "writing-harness/evaluate.py": { "status": "present", "note": "评分棘轮执行器存在" },
+        "writing-harness/review-swarm-prompt.md": { "status": "present", "note": "2026-09-26 已从母版回源，并叠加 extra_roles 附加角色" },
+        "writing-harness/scannability-check.py": { "status": "present", "note": "2026-09-26 已从母版回源，--list 自测通过" },
+        "writing-harness/patrol-log.json": { "status": "present", "note": "本文件" }
+      },
+      "drift_fixed": "config.patrol.enabled 此前声明 true 但 patrol-log.json 不存在；本次建档补齐，并于 schedule_note 如实注明 patrol 工具在母版缺失。"
+    }
+  ],
+  "next_run": {
+    "trigger": "external-schedule-cron",
+    "checks_to_execute": [
+      "写作门禁 writing-gates.py",
+      "评分棘轮 evaluate.py",
+      "英文可扫读性 scannability-check.py"
+    ]
+  }
+}

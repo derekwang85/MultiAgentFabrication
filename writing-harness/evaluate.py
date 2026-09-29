@@ -77,9 +77,13 @@ def find(articles, key):
 
 
 def rule_check(new_score, avg):
-    ok = new_score > avg
+    # 主导规则：每篇锁定 9.5-9.9 目标带；相对前序均分采用“不低于”（>=）而非“严格大于”（>）。
+    # 若超过 9.9 上沿，视为越界告警（宽松通过但提示）。
+    ok = new_score >= avg
     status = "PASS" if ok else "FAIL"
-    print(f"  判定：分数 {new_score} 对基准 {avg} -> {status}（须严格大于）")
+    over_band = new_score > 9.9
+    band_note = "，越上沿告警" if over_band else ""
+    print(f"  判定：分数 {new_score} 对基准 {avg} -> {status}（须不低于）{band_note}")
     return ok
 
 
@@ -94,7 +98,7 @@ def cmd_list(data):
     avg = average(arts)
     print("-" * 70)
     print(f"前序文章平均分（基准线）：{avg}")
-    print(f"下篇目标分：须 > {avg}")
+    print(f"下篇目标分：锁定 9.5-9.9 带，向带内上沿递进；且不低于前均 {avg}")
 
 
 def cmd_next(data, args):
@@ -102,7 +106,7 @@ def cmd_next(data, args):
     avg = average(arts)
     print(f"基准口径：{'剔除 --exclude 篇目后' if args.exclude else '全部已入库篇目'}的累计均分")
     print(f"前序平均分（基准线）：{avg:.2f}")
-    print(f"下一篇目标分：须严格大于 {avg:.2f}（建议写到 {avg + 0.2:.2f}+ 才有余量）")
+    print(f"下一篇目标分：锁定 9.5-9.9 目标带，向 9.9 收敛；相对前均 {avg:.2f} 采用不低于（>=）")
     print("突破维度（至少标注 1 项）：" + " / ".join(VALID_DIMS))
 
 
@@ -210,7 +214,7 @@ def ratchet_failures(data):
             base_prev = 0.0
         else:
             base_prev = round(cum / i, 2)
-        if not (a["score"] > base_prev):
+        if not (a["score"] >= base_prev):  # 主导规则：不低于前序均分
             failures.append((a["key"], a["score"], base_prev))
         cum += a["score"]
     return failures

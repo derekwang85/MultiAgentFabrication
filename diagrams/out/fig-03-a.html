@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>三轨并行：把「该做什么 / 出什么问题 / 做对没有」三条线分开追</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1360px; height:860px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>三轨并行：把「该做什么 / 出什么问题 / 做对没有」三条线分开追</h1>
+<div class="sub">A2 · 分工后的一大陷阱是三条线糊在一起；三轨让每一步都可回查</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 860">
+  <polyline points="174.0,178.0 347.0,178.0 347.0,174.0 520.0,174.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="174.0" cy="178.0" r="2.6" fill="var(--line)"/><circle cx="520.0" cy="174.0" r="3.0" fill="var(--line)"/>
+    <polyline points="520.0,174.0 642.5,174.0 765.0,174.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="520.0" cy="174.0" r="2.6" fill="var(--line)"/><circle cx="765.0" cy="174.0" r="3.0" fill="var(--line)"/>
+    <polyline points="765.0,174.0 990.5,174.0 990.5,430.0 1216.0,430.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="765.0" cy="174.0" r="2.6" fill="var(--line)"/><circle cx="1216.0" cy="430.0" r="3.0" fill="var(--line)"/>
+    <polyline points="520.0,434.0 642.5,434.0 765.0,434.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="520.0" cy="434.0" r="2.6" fill="var(--line)"/><circle cx="765.0" cy="434.0" r="3.0" fill="var(--line)"/>
+    <polyline points="765.0,434.0 990.5,434.0 990.5,430.0 1216.0,430.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="765.0" cy="434.0" r="2.6" fill="var(--line)"/><circle cx="1216.0" cy="430.0" r="3.0" fill="var(--line)"/>
+    <polyline points="520.0,694.0 642.5,694.0 765.0,694.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="520.0" cy="694.0" r="2.6" fill="var(--line)"/><circle cx="765.0" cy="694.0" r="3.0" fill="var(--line)"/>
+    <polyline points="765.0,694.0 990.5,694.0 990.5,430.0 1216.0,430.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="765.0" cy="694.0" r="2.6" fill="var(--line)"/><circle cx="1216.0" cy="430.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1216.0,430.0 1216.0,668.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1216.0" cy="430.0" r="2.6" fill="var(--line)"/><circle cx="1216.0" cy="668.0" r="3.0" fill="var(--line)"/>
+  </svg>
+  <div class="zone" style="left:24px;top:40px;width:300px;height:780px"><span class="zone-label">输入 · 一个判断任务</span></div>
+    <div class="node neutral" style="left:52px;top:130px;width:244px;height:96px"><b>判断任务</b><small>带着目标、约束与派活规格</small></div>
+    <div class="zone" style="left:380px;top:60px;width:660px;height:210px"><span class="zone-label">轨道一 · WBS 任务轨（该做什么）</span></div>
+    <div class="node process" style="left:420px;top:130px;width:200px;height:88px"><b>拆步骤</b><small>标负责人 · 定依赖 · 跟派活走</small></div>
+    <div class="node process" style="left:660px;top:130px;width:210px;height:88px"><b>推进</b><small>谁负责哪一步，写进 WBS</small></div>
+    <div class="zone" style="left:380px;top:320px;width:660px;height:210px"><span class="zone-label">轨道二 · Issue 问题轨（出什么问题）</span></div>
+    <div class="node process" style="left:420px;top:390px;width:200px;height:88px"><b>新故障入轨</b><small>当场记录，不靠记忆</small></div>
+    <div class="node process" style="left:660px;top:390px;width:210px;height:88px"><b>带关联</b><small>regressionOf 链回前序问题</small></div>
+    <div class="zone" style="left:380px;top:580px;width:660px;height:210px"><span class="zone-label">轨道三 · 测试复核轨（做对没有）</span></div>
+    <div class="node process" style="left:420px;top:650px;width:200px;height:88px"><b>编译通过</b><small>四类结果之一：编译失败/仍败/新败/超时</small></div>
+    <div class="node process" style="left:660px;top:650px;width:210px;height:88px"><b>分型记录</b><small>同一测试仍败=重做根因；新失败=涟漪入 Issue</small></div>
+    <div class="node storage" style="left:1096px;top:300px;width:240px;height:260px"><b>判断结算点</b><small>三条账对齐：&#10;怎么来的 · 出了什么岔 · 凭什么说做对</small></div>
+    <div class="node external" style="left:1096px;top:620px;width:240px;height:96px"><b>可管理的判断</b><small>任何一步都能复核</small></div>
+</div>
+</body>
+</html>

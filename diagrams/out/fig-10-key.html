@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Multi-Agent 就是一台微型组织：三权、制衡、问责演出来的那张脸</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1360px; height:560px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>Multi-Agent 就是一台微型组织：三权、制衡、问责演出来的那张脸</h1>
+<div class="sub">A7 · 一般系统论 —— 多 Agent 方法论与组织学在结构上同构，而不是打了个比喻</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 560">
+  <polyline points="140.0,285.0 290.0,285.0 290.0,120.0 440.0,120.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="140.0" cy="285.0" r="2.6" fill="var(--line)"/><circle cx="440.0" cy="120.0" r="3.0" fill="var(--line)"/>
+    <rect x="269.6" y="185.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="290.0" y="200.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">分工守恒</text>
+    <polyline points="440.0,120.0 560.0,120.0 680.0,120.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="440.0" cy="120.0" r="2.6" fill="var(--line)"/><circle cx="680.0" cy="120.0" r="3.0" fill="var(--line)"/>
+    <rect x="788.0" y="105.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="812.0" y="120.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">分工配制衡</text>
+    <polyline points="680.0,120.0 560.0,120.0 560.0,280.0 440.0,280.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="680.0" cy="120.0" r="2.6" fill="var(--line)"/><circle cx="440.0" cy="280.0" r="3.0" fill="var(--line)"/>
+    <rect x="536.0" y="185.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="560.0" y="200.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">制衡要成规</text>
+    <polyline points="440.0,280.0 560.0,280.0 680.0,280.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="440.0" cy="280.0" r="2.6" fill="var(--line)"/><circle cx="680.0" cy="280.0" r="3.0" fill="var(--line)"/>
+    <rect x="788.0" y="265.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="812.0" y="280.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">规矩靠回流</text>
+    <polyline points="440.0,120.0 822.5,120.0 822.5,240.0 1205.0,240.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="440.0" cy="120.0" r="2.6" fill="var(--line)"/><circle cx="1205.0" cy="240.0" r="3.0" fill="var(--line)"/>
+    <rect x="805.7" y="151.0" width="33.6" height="18.0" rx="4" fill="var(--bg)"/><text x="822.5" y="166.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">可分工</text>
+    <polyline points="680.0,120.0 942.5,120.0 942.5,240.0 1205.0,240.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="680.0" cy="120.0" r="2.6" fill="var(--line)"/><circle cx="1205.0" cy="240.0" r="3.0" fill="var(--line)"/>
+    <rect x="925.7" y="151.0" width="33.6" height="18.0" rx="4" fill="var(--bg)"/><text x="942.5" y="166.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">可制衡</text>
+    <polyline points="680.0,280.0 942.5,280.0 942.5,240.0 1205.0,240.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="680.0" cy="280.0" r="2.6" fill="var(--line)"/><circle cx="1205.0" cy="240.0" r="3.0" fill="var(--line)"/>
+    <rect x="913.2" y="245.0" width="33.6" height="18.0" rx="4" fill="var(--bg)"/><text x="930.0" y="260.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">可审计</text>
+    <polyline points="140.0,285.0 405.0,285.0 405.0,480.0 670.0,480.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="140.0" cy="285.0" r="2.6" fill="var(--line)"/><circle cx="670.0" cy="480.0" r="3.0" fill="var(--line)"/>
+    <rect x="352.2" y="370.0" width="105.6" height="18.0" rx="4" fill="var(--bg)"/><text x="405.0" y="385.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">反范式：只要聪明，不要组织</text>
+  </svg>
+  <div class="node external" style="left:20px;top:230px;width:240px;height:110px"><b>组织物种反复演化的特征</b><small>分工 · 制衡 · 问责&#10;科层化 · 控熵闭环</small></div>
+    <div class="node process" style="left:340px;top:70px;width:200px;height:100px"><b>分工可切</b><small>判断切成责任可指认的环节（第二幕）</small></div>
+    <div class="node process" style="left:580px;top:70px;width:200px;height:100px"><b>三权制衡</b><small>报告≠修复≠验证，时间隔离（第三幕）</small></div>
+    <div class="node process" style="left:340px;top:230px;width:200px;height:100px"><b>规制治理</b><small>先立规矩再派人（第八幕）</small></div>
+    <div class="node process" style="left:580px;top:230px;width:200px;height:100px"><b>人机闭环</b><small>人在决策点进圈，教训回流（第九幕）</small></div>
+    <div class="node storage" style="left:1080px;top:170px;width:250px;height:140px"><b>组织化的生产力</b><small>判断被治理&#10;可分工 · 可校验 · 可审计</small></div>
+    <div class="node risk" style="left:560px;top:430px;width:220px;height:100px"><b>Agent 玩具的病</b><small>只要个体聪明，不要组织结构&#10;一乱就崩，一扩就瘫</small></div>
+</div>
+</body>
+</html>

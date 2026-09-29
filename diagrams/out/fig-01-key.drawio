@@ -1,0 +1,28 @@
+<mxfile host="app.diagrams.net" agent="MultiAgentFabrication" version="24.0.0">
+<diagram id="maf" name="Page-1">
+<mxGraphModel dx="1300" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1020" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="zone_in" value="输入侧（同一个问题，单 Agent 全包）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="30" y="40" width="380" height="760" as="geometry"/></mxCell>
+<mxCell id="prompt" value="同一个复杂问题&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;理解 · 拆解 · 执行 · 自检，全部塞进一次前向推理&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="70" y="110" width="300" height="64" as="geometry"/></mxCell>
+<mxCell id="zone_fail" value="三层失效（判断不可管理的根因）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="480" y="40" width="340" height="760" as="geometry"/></mxCell>
+<mxCell id="f1" value="不可验证&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;给的是判断，不是证明；要么全信要么推倒&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fecaca;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="510" y="120" width="280" height="96" as="geometry"/></mxCell>
+<mxCell id="f2" value="不可分工&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;四环合一，出错无法定位到具体环节&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fecaca;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="510" y="250" width="280" height="96" as="geometry"/></mxCell>
+<mxCell id="f3" value="不可追溯&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;无留痕，出错无法复盘，错误悄悄重演&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fecaca;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="510" y="380" width="280" height="96" as="geometry"/></mxCell>
+<mxCell id="sink" value="判断不可被管理&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;三缺陷叠加的必然结果&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde68a;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="510" y="540" width="280" height="76" as="geometry"/></mxCell>
+<mxCell id="zone_out" value="输出侧（后果难以追责）" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="890" y="40" width="400" height="760" as="geometry"/></mxCell>
+<mxCell id="choice" value="给出一个答案（A 或 B）&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;但它是哪次采样？基于哪条约束？无从得知&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="930" y="110" width="320" height="92" as="geometry"/></mxCell>
+<mxCell id="repair" value="只能靠人盯着试错修补&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;事故驱动 · 事后兜底 · 改完还可能复发&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde68a;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="930" y="280" width="320" height="92" as="geometry"/></mxCell>
+<mxCell id="trust" value="信任崩塌&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;交付越多，越心慌——因为无法自证&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde68a;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="930" y="450" width="320" height="92" as="geometry"/></mxCell>
+<mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="prompt" target="f1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="f1" target="f2"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="f2" target="f3"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="f3" target="sink"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="sink" target="choice"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="choice" target="repair"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="repair" target="trust"><mxGeometry relative="1" as="geometry"/></mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

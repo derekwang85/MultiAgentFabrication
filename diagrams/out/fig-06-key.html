@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Swarm 五相里留一条少数派异议通道：多数不是真值的替身</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1320px; height:540px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>Swarm 五相里留一条少数派异议通道：多数不是真值的替身</h1>
+<div class="sub">A4 · 对抗决策不靠人数，靠把被压下去的另类判断捞回审查链 —— 承第五篇《约束即配置》</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 540">
+  <polyline points="120.0,345.0 255.0,345.0 255.0,135.0 390.0,135.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="120.0" cy="345.0" r="2.6" fill="var(--line)"/><circle cx="390.0" cy="135.0" r="3.0" fill="var(--line)"/>
+    <rect x="227.4" y="223.0" width="55.2" height="18.0" rx="4" fill="var(--bg)"/><text x="255.0" y="238.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">任务进入例程</text>
+    <polyline points="390.0,135.0 530.0,135.0 670.0,135.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="390.0" cy="135.0" r="2.6" fill="var(--line)"/><circle cx="670.0" cy="135.0" r="3.0" fill="var(--line)"/>
+    <rect x="788.4" y="120.0" width="55.2" height="18.0" rx="4" fill="var(--bg)"/><text x="816.0" y="135.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">不达手就移交</text>
+    <polyline points="390.0,135.0 390.0,295.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="390.0" cy="135.0" r="2.6" fill="var(--line)"/><circle cx="390.0" cy="295.0" r="3.0" fill="var(--line)"/>
+    <rect x="366.0" y="200.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="390.0" y="215.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">上下文累积</text>
+    <polyline points="670.0,135.0 670.0,295.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="670.0" cy="135.0" r="2.6" fill="var(--line)"/><circle cx="670.0" cy="295.0" r="3.0" fill="var(--line)"/>
+    <rect x="646.0" y="200.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="670.0" y="215.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">移交后汇合</text>
+    <polyline points="390.0,295.0 530.0,295.0 670.0,295.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="390.0" cy="295.0" r="2.6" fill="var(--line)"/><circle cx="670.0" cy="295.0" r="3.0" fill="var(--line)"/>
+    <rect x="788.4" y="280.0" width="55.2" height="18.0" rx="4" fill="var(--bg)"/><text x="816.0" y="295.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">共识进入表决</text>
+    <polyline points="670.0,295.0 840.0,295.0 840.0,240.0 1010.0,240.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="670.0" cy="295.0" r="2.6" fill="var(--line)"/><circle cx="1010.0" cy="240.0" r="3.0" fill="var(--line)"/>
+    <rect x="798.8" y="252.5" width="62.4" height="18.0" rx="4" fill="var(--bg)"/><text x="830.0" y="267.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">多数定案，留痕</text>
+    <polyline points="670.0,295.0 840.0,295.0 840.0,430.0 1010.0,430.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="670.0" cy="295.0" r="2.6" fill="var(--line)"/><circle cx="1010.0" cy="430.0" r="3.0" fill="var(--line)"/>
+    <rect x="780.0" y="349.0" width="120.0" height="18.0" rx="4" fill="var(--bg)"/><text x="840.0" y="364.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">反范式：多数压制少数，异议被吞</text>
+  </svg>
+  <div class="node input" style="left:20px;top:300px;width:200px;height:90px"><b>任务进 Swarm</b><small>一次判断请求&#10;进入例程流程</small></div>
+    <div class="node process" style="left:280px;top:90px;width:220px;height:90px"><b>① 例程 Agent</b><small>起手常规处理&#10;积累上下文</small></div>
+    <div class="node process" style="left:560px;top:90px;width:220px;height:90px"><b>② handoff / 工具触发</b><small>遇到越权就移交&#10;换 Agent 或调工具</small></div>
+    <div class="node process" style="left:280px;top:250px;width:220px;height:90px"><b>③ 上下文累积</b><small>状态随移交滚动&#10;共识逐步成形</small></div>
+    <div class="node process" style="left:560px;top:250px;width:220px;height:90px"><b>④ 多数汇合表决</b><small>多数观点浮出&#10;但 多数 ≠ 正确</small></div>
+    <div class="node storage" style="left:880px;top:170px;width:260px;height:140px"><b>⑤ 产出 + 裁决留痕</b><small>结论进审计链&#10;每一步有来路</small></div>
+    <div class="node risk" style="left:880px;top:380px;width:260px;height:100px"><b>少数派异议通道</b><small>被多数压下的一方必须留痕&#10;下一步交给复核，而非沉默</small></div>
+</div>
+</body>
+</html>

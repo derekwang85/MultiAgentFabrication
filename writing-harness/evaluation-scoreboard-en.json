@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0",
+  "updated": "2026-09-26",
+  "system": {
+    "scale_max": 10.0,
+    "rule": "主导规则：每篇锁定 9.5-9.9 目标带，向带内上沿递进；相对前序均分采用“不低于”而非“严格大于”。先过英文门禁 E1-E6 再评分，每篇至少落实一个前序未用过的英文突破维度。",
+    "deadline_note": "英文 essay 平均分 = 全部已评分数值的算术平均，保留 2 位。基准线用于下一篇 essay 的目标分。"
+  },
+  "breakthrough_dims": [
+    "native-voice",
+    "reproducible-evidence",
+    "english-allusions",
+    "scannability",
+    "memorable-phrasing"
+  ],
+  "articles": [
+    {
+      "key": "01-trust-crisis.en",
+      "title": "The Trust Crisis of a Single Agent",
+      "file": "articles/en/01-trust-crisis.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "native-voice",
+      "note": "Expanded to 2066 words: new boundary section (black box checking black box amplifies error magnitude / same-temperature stamping), LangChain composable-chain-not-provable unpacking, Bad90 stepwise adjudication sequence"
+    },
+    {
+      "key": "02-division.en",
+      "title": "Division as Reconstructible Judgment",
+      "file": "articles/en/02-division.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "memorable-phrasing",
+      "note": "Expanded to 2194 words: granularity-cliff boundary section, three-pillar contract table, can't-trace-the-person counterexample, CrewAI field-level breakdown (role/goal/backstory lacks handoff ledger)"
+    },
+    {
+      "key": "03-tracks-powers.en",
+      "title": "Three Tracks and Three Powers",
+      "file": "articles/en/03-tracks-powers.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "english-allusions",
+      "note": "Expanded to 2249 words: loop-closure boundary section (split hands but not loop = idle), three-track ledger-line example (WBS/Issue/Test interlocking), AutoGen GroupChat lacks three powers, reporter/fixer/verifier same-person counterexample"
+    },
+    {
+      "key": "04-selection.en",
+      "title": "Selection as Constraint Solving",
+      "file": "articles/en/04-selection.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "english-allusions",
+      "note": "batch2 expand: added funnel I/O contract, LangGraph dual-path cost, explicit-failure-as-deliverable section; body 2280 words PASS(>=1900), E1-E6 pass"
+    },
+    {
+      "key": "05-configuration.en",
+      "title": "05-configuration.en",
+      "file": "articles/en/05-configuration.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "open-source-history case (K8s imperative-to-declarative) as fresh english breakthrough",
+      "note": "batch2 expand: added YAML profile example, object-vs-decision configurable distinction, tight-coupling boundary section with K8s reconcile loop + counterexample; body 2243 words PASS(>=1900), E1-E6 pass"
+    },
+    {
+      "key": "06-minority.en",
+      "title": "06-minority.en",
+      "file": "articles/en/06-minority.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "condorcet-jury-theorem epistemic anchor as fresh English breakthrough",
+      "note": "EN essay 6 (expanded): Condorcet's three premises collapse one-by-one + verify-independence-before-the-vote rule; 4-field dissent-row schema; AutoGen GroupChat consensus pool drowning the dissent + four-yes-one-veto quarantine counterexample; 2139 body words PASS; self-assessment 9.8"
+    },
+    {
+      "key": "07-claims.en",
+      "title": "07-claims.en",
+      "file": "articles/en/07-claims.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "popper falsifiability as fresh English breakthrough",
+      "note": "EN essay 7 (expanded): claims fit facts = falsifiable x benchmark line x no ruler, no score; three-step processing table worked example + auto-verdict; ruler-on-the-ruler recursion with expiry line and manual hand-off; crash scene of stale-config snapshot + three questions of evidence origin; 1978 body words PASS; self-assessment 9.8"
+    },
+    {
+      "key": "08-governance.en",
+      "title": "08-governance.en",
+      "file": "articles/en/08-governance.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "han fei legalist determinism as fresh English breakthrough",
+      "note": "Two-tier rework: pre-dispatch invariant positioned as meta-layer artifact (k1 rule-layer) released down to product layer; 'first' in 'first the rule-book' is architectural, not only temporal; merging rule-book and scheduler into one layer invites midnight gate-loosening; body 2213 words PASS, E1-E6 pass"
+    },
+    {
+      "key": "09-hitl.en",
+      "title": "Humans Inside the Loop",
+      "file": "articles/en/09-hitl.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "wiener cybernetics feedback as fresh English breakthrough",
+      "note": "Two-tier rework: set HITL into No.13's four-layer bus; the person stands exactly at the adjudication seat on the k4 cross-layer reflux pipe (one-way+ADR+human-adjudicated); every real HITL intervention is an audited, directed, human-signed rule upgrade on k4; body 2271 words PASS, E1-E6 pass"
+    },
+    {
+      "key": "10-organization.en",
+      "title": "A Lesson in Organization",
+      "file": "articles/en/10-organization.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "weber iron cage plus von bertalanffy general systems theory as fresh English breakthrough",
+      "note": "expand: paper-rules three holes vs machine-check, four-beams org table, entropy three readings"
+    },
+    {
+      "key": "11-programmability.en",
+      "title": "The Programmability of Productivity",
+      "file": "articles/en/11-programmability.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "marx general intellect as fresh English breakthrough",
+      "note": "expand: three-layer migration table, outsourcing vs ledger migration, four-step compilable judgment, unreplaceable ceiling"
+    },
+    {
+      "key": "12-ledger.en",
+      "title": "The Ledger of Entropy",
+      "file": "articles/en/12-ledger.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-23",
+      "breakthrough": "landauer principle (information is physical; erasing a bit dissipates at least k_B*T*ln2 energy) as fresh English breakthrough",
+      "note": "Two-tier rework: decision.db positioned as product-layer k3 episodic memory (source_run_id/confidence/content_hash); meta layer keeps its own build-time ledger (WBS/ADR), two books write only in their own layer; k4 one-way reflux pipe welds No.12 ledger to No.9 HITL; body 2353 words PASS, E1-E6 pass"
+    },
+    {
+      "key": "13-two-tier-meta-product.en",
+      "title": "13-two-tier-meta-product.en",
+      "file": "articles/en/13-two-tier-meta-product.en.md",
+      "score": 9.8,
+      "status": "draft-review",
+      "date": "2026-09-26",
+      "breakthrough": "Herbert Simon near-decomposable hierarchy / organizational memory anchors two-tier memory asymmetry",
+      "note": "New anchor essay: meta-agent/product-agent two-tier + k1-k4 memory handoff; real architecture anonymized into descriptive project language"
+    }
+  ]
+}

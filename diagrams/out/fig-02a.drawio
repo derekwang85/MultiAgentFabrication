@@ -1,0 +1,21 @@
+<mxfile host="app.diagrams.net" agent="MultiAgentFabrication" version="24.0.0">
+<diagram id="maf" name="Page-1">
+<mxGraphModel dx="1300" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1580" pageHeight="840" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="whole" value="一整块判断&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;输入一次 · 答案一次 · 不可分&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="560" y="60" width="380" height="120" as="geometry"/></mxCell>
+<mxCell id="zt" value="三条切分轨&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;女巫切：一整块被重构成可分工的轨道&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="250" y="260" width="1000" height="180" as="geometry"/></mxCell>
+<mxCell id="t1" value="切 · 责权&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;谁负责，写清楚&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="290" y="325" width="200" height="70" as="geometry"/></mxCell>
+<mxCell id="t2" value="切 · 校验&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;做对没有，单列一轨&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="570" y="325" width="200" height="70" as="geometry"/></mxCell>
+<mxCell id="t3" value="切 · 审计&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;每一步都能回查&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="850" y="325" width="200" height="70" as="geometry"/></mxCell>
+<mxCell id="r1" value="责任可指认&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;漏了谁都找得到&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#99f6e4;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="290" y="560" width="200" height="90" as="geometry"/></mxCell>
+<mxCell id="r2" value="复核可信&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;多一双眼睛验&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde68a;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="570" y="560" width="200" height="90" as="geometry"/></mxCell>
+<mxCell id="r3" value="问责闭环&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;切开之后仍然守恒&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="850" y="560" width="200" height="90" as="geometry"/></mxCell>
+<mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="t1" target="r1"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="t2" target="r2"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="t3" target="r3"><mxGeometry relative="1" as="geometry"/></mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

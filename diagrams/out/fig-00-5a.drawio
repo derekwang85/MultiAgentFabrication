@@ -1,0 +1,13 @@
+<mxfile host="app.diagrams.net" agent="MultiAgentFabrication" version="24.0.0">
+<diagram id="maf" name="Page-1">
+<mxGraphModel dx="1300" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1480" pageHeight="1180" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="ring_ma" value="Multi-Agent · 分工责任组织&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;判断被重构成 谁负责 · 谁裁决 · 谁证明 · 谁记账 —— 这一层换的不再是‘手’，而是分工的方式；它就是那条质变分界线&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="150" y="90" width="1100" height="820" as="geometry"/></mxCell>
+<mxCell id="ring_sub" value="Subagent · 外包执行分身&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;只是给同一判断器多配了几只‘手’（工具），核心评判根本没变&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="320" y="210" width="760" height="580" as="geometry"/></mxCell>
+<mxCell id="core" value="单点判断器&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;不可自我证明的‘我’：输入一次，给一个答案，无人复核&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="480" y="320" width="440" height="360" as="geometry"/></mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

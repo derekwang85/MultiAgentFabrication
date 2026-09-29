@@ -1,3 +1,17 @@
 node_modules/
 *.log
 .tmp/
+.checkmd/
+__pycache__/
+
+# TRAE 工具本地配置与生成产物
+.trae/
+.trae-html-share-packages/
+
+# 发布构建产物（源稿以 articles/ 为唯一事实来源）
+publish/
+
+# 编辑器备份/临时文件（drawio/Office）
+.*.bkp
+~$*
+*.~

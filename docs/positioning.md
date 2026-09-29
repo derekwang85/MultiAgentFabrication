@@ -49,7 +49,7 @@
 
 - 《RefactoringSoftwareEngineering》回答"把管理方法本身也管起来 / 把软件工程工序重做一遍"。
 - 《MultiAgent Fabrication》回答"用一群 Agent / 多个模型，怎么真的形成生产力"。
-- 关系：MultiAgent 是 RefactoringSoftwareEngineering 的**核心延伸**——前者提供"多 Agent 造东西"的引擎，后者把造出来的东西与治理管成体系。
+- 关系：Multi-Agent 是 RefactoringSoftwareEngineering 的**核心延伸**——前者提供"多 Agent 造东西"的引擎，后者把造出来的东西与治理管成体系。
 
 ---
 

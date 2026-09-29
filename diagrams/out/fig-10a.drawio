@@ -1,0 +1,27 @@
+<mxfile host="app.diagrams.net" agent="MultiAgentFabrication" version="24.0.0">
+<diagram id="maf" name="Page-1">
+<mxGraphModel dx="1300" dy="850" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="940" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<mxCell id="zdiv" value="分工&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;事拆分，熵减由此来&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="100" y="80" width="220" height="160" as="geometry"/></mxCell>
+<mxCell id="d1" value="切分职责&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;一人一段可指认&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#99f6e4;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="150" y="130" width="120" height="56" as="geometry"/></mxCell>
+<mxCell id="zck" value="制衡&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;权与责互相牵住&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="900" y="80" width="220" height="160" as="geometry"/></mxCell>
+<mxCell id="c1" value="检查制衡&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;报告≠修复≠验证&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde68a;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="950" y="130" width="120" height="56" as="geometry"/></mxCell>
+<mxCell id="zacc" value="问责&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;出了事找得到人&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="100" y="650" width="220" height="160" as="geometry"/></mxCell>
+<mxCell id="a1" value="追责落账&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;人人可为结果负责&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="150" y="700" width="120" height="56" as="geometry"/></mxCell>
+<mxCell id="zhier" value="科层化&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;层级归口，消息有序&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="900" y="650" width="220" height="160" as="geometry"/></mxCell>
+<mxCell id="h1" value="层级归口&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;越往上职责越整&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e2e8f0;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="950" y="700" width="120" height="56" as="geometry"/></mxCell>
+<mxCell id="zcore" value="一般系统论闭环&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;输入 → 处理 → 输出 → 反馈，闭环控熵&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#64748b;dashed=1;verticalAlign=top;fontStyle=1;fontSize=13;" vertex="1" parent="1"><mxGeometry x="430" y="290" width="360" height="300" as="geometry"/></mxCell>
+<mxCell id="inc" value="输入&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;外部信号进系统&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bfdbfe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="470" y="370" width="120" height="60" as="geometry"/></mxCell>
+<mxCell id="prc" value="处理&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;分工与制衡在此完成&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c7d2fe;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="630" y="370" width="120" height="60" as="geometry"/></mxCell>
+<mxCell id="out" value="输出&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;判定的结果出圈&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#99f6e4;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="470" y="480" width="120" height="60" as="geometry"/></mxCell>
+<mxCell id="fb" value="反馈&#10;&#10;&lt;font style=&quot;font-size:10px;color:#5b6475;&quot;&gt;结果回流再校验&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fde68a;strokeColor=#64748b;" vertex="1" parent="1"><mxGeometry x="630" y="480" width="120" height="60" as="geometry"/></mxCell>
+<mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="inc" target="prc"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="prc" target="fb"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" edge="1" parent="1" source="fb" target="out"><mxGeometry relative="1" as="geometry"/></mxCell>
+<mxCell id="e3" value="自环" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;dashed=1;strokeColor=#94a3b8;labelBackgroundColor=#f8fafc;fontSize=11;" edge="1" parent="1" source="out" target="inc"><mxGeometry relative="1" as="geometry"/></mxCell>
+</root>
+</mxGraphModel>
+</diagram>
+</mxfile>

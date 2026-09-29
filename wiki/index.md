@@ -50,6 +50,7 @@
 - [[source-writing-harness]] — 门禁与进化评估（`writing-harness/`）
 - [[source-skill-registry]] — 技能注册表（`docs/SKILL-REGISTRY.md`）
 - [[source-evolution-skill]] — 所依赖的外部 skill：derekwritting-evolution（中文）/ derekwritting-evolution-en（英文）
+- [[source-derekwritting-team-relationship]] — 与 derekwritting-framework 的团队-个人关系契约与回流通道
 
 ---
 
@@ -63,4 +64,6 @@
 | 技能注册表 | [../docs/SKILL-REGISTRY.md](../docs/SKILL-REGISTRY.md) |
 | 门禁规约 | [../writing-harness/GATES.md](../writing-harness/GATES.md) |
 | 进化评估规约 | [../writing-harness/EVALUATION.md](../writing-harness/EVALUATION.md) |
-| 系列策划 | [../SERIES-PLAN.md](../SERIES-PLAN.md) |
+| 系列纲宪（主线/论纲/边界） | [../SCOPE.md](../SCOPE.md) |
+| 系列策划（v2 四幕） | [../SERIES-PLAN.md](../SERIES-PLAN.md) |
+| 画图纪律与几何 QA | [../diagrams/](../diagrams/diagram_gen.py) |

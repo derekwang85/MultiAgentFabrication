@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>生产力的可编程化：判断力从人身上，迁移到可验证的系统里</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1360px; height:560px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>生产力的可编程化：判断力从人身上，迁移到可验证的系统里</h1>
+<div class="sub">A8 · 政治经济学/技术史 —— 脑力劳动生产方式的结构性改写，而不是效率的线性提升</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 560">
+  <polyline points="150.0,140.0 310.0,140.0 470.0,140.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="150.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="470.0" cy="140.0" r="3.0" fill="var(--line)"/>
+    <rect x="288.8" y="125.0" width="62.4" height="18.0" rx="4" fill="var(--bg)"/><text x="320.0" y="140.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">被可编程化拆散</text>
+    <polyline points="470.0,140.0 620.0,140.0 620.0,255.0 770.0,255.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="470.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="770.0" cy="255.0" r="3.0" fill="var(--line)"/>
+    <rect x="288.8" y="182.5" width="62.4" height="18.0" rx="4" fill="var(--bg)"/><text x="320.0" y="197.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">进组织化生产线</text>
+    <polyline points="770.0,255.0 937.5,255.0 1105.0,255.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="770.0" cy="255.0" r="2.6" fill="var(--line)"/><circle cx="1105.0" cy="255.0" r="3.0" fill="var(--line)"/>
+    <rect x="912.4" y="240.0" width="55.2" height="18.0" rx="4" fill="var(--bg)"/><text x="940.0" y="255.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">从劳动变资产</text>
+    <polyline points="1105.0,255.0 937.5,255.0 937.5,455.0 770.0,455.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1105.0" cy="255.0" r="2.6" fill="var(--line)"/><circle cx="770.0" cy="455.0" r="3.0" fill="var(--line)"/>
+    <rect x="902.7" y="345.0" width="69.6" height="18.0" rx="4" fill="var(--bg)"/><text x="937.5" y="360.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">向行业/社会扩散</text>
+    <polyline points="770.0,255.0 942.5,255.0 942.5,470.0 1115.0,470.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="770.0" cy="255.0" r="2.6" fill="var(--line)"/><circle cx="1115.0" cy="470.0" r="3.0" fill="var(--line)"/>
+    <rect x="900.5" y="355.0" width="84.0" height="18.0" rx="4" fill="var(--bg)"/><text x="942.5" y="370.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">反范式：有迁移没治理</text>
+  </svg>
+  <div class="node input" style="left:20px;top:80px;width:260px;height:120px"><b>作坊式脑力劳动</b><small>判断在个人脑内&#10;不可分工 · 不可校验 · 不可审计</small></div>
+    <div class="node process" style="left:360px;top:80px;width:220px;height:120px"><b>判断可编程化</b><small>分工可切 + 校验可查 + 审计留痕&#10;判断从天赋变成可生产的资源</small></div>
+    <div class="node process" style="left:640px;top:190px;width:260px;height:130px"><b>组织化的Multi-Agent</b><small>三权 + 治理 + HITL 四根梁&#10;把脑力劳动改成生产线</small></div>
+    <div class="node storage" style="left:980px;top:190px;width:250px;height:130px"><b>改写后的生产力结构</b><small>判断从稀缺天赋变可编程资源&#10;从个人劳动变组织资产</small></div>
+    <div class="node external" style="left:640px;top:400px;width:260px;height:110px"><b>企业/行业/社会结构迁移</b><small>可扩张 · 可复制 · 可度量&#10;对脑力分工的再分配</small></div>
+    <div class="node risk" style="left:1000px;top:420px;width:230px;height:100px"><b>有迁移没治理的失控</b><small>判断外包却不可审计&#10;效率提了，账本空了</small></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>审计记忆闭环：Multi-Agent 的最终计量，是那本记得住来路的账</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1360px; height:560px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>审计记忆闭环：Multi-Agent 的最终计量，是那本记得住来路的账</h1>
+<div class="sub">A8 · 审计/知识资产化 —— 决策留痕就是记忆，可回放的账本把失控压回可管理，承第十一篇《生产力的可编程化》在熵上的收束</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 560">
+  <polyline points="140.0,140.0 287.5,140.0 435.0,140.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="140.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="435.0" cy="140.0" r="3.0" fill="var(--line)"/>
+    <rect x="-44.6" y="125.0" width="55.2" height="18.0" rx="4" fill="var(--bg)"/><text x="-17.0" y="140.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">每笔决策落账</text>
+    <polyline points="435.0,140.0 580.0,140.0 580.0,145.0 725.0,145.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="435.0" cy="140.0" r="2.6" fill="var(--line)"/><circle cx="725.0" cy="145.0" r="3.0" fill="var(--line)"/>
+    <rect x="859.2" y="127.5" width="69.6" height="18.0" rx="4" fill="var(--bg)"/><text x="894.0" y="142.5" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">形成可回放的记忆</text>
+    <polyline points="725.0,145.0 892.5,145.0 1060.0,145.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="725.0" cy="145.0" r="2.6" fill="var(--line)"/><circle cx="1060.0" cy="145.0" r="3.0" fill="var(--line)"/>
+    <rect x="863.8" y="130.0" width="62.4" height="18.0" rx="4" fill="var(--bg)"/><text x="895.0" y="145.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">记忆沉淀成资产</text>
+    <polyline points="725.0,145.0 725.0,370.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="725.0" cy="145.0" r="2.6" fill="var(--line)"/><circle cx="725.0" cy="370.0" r="3.0" fill="var(--line)"/>
+    <rect x="675.8" y="250.0" width="98.4" height="18.0" rx="4" fill="var(--bg)"/><text x="725.0" y="265.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">翻账 · 找错 · 成规</text>
+    <polyline points="725.0,370.0 432.5,370.0 432.5,140.0 140.0,140.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="725.0" cy="370.0" r="2.6" fill="var(--line)"/><circle cx="140.0" cy="140.0" r="3.0" fill="var(--line)"/>
+    <rect x="397.7" y="245.0" width="69.6" height="18.0" rx="4" fill="var(--bg)"/><text x="432.5" y="260.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">回流回主链，闭环</text>
+    <polyline points="725.0,145.0 895.0,145.0 895.0,450.0 1065.0,450.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="725.0" cy="145.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="450.0" r="3.0" fill="var(--line)"/>
+    <rect x="856.6" y="290.0" width="76.8" height="18.0" rx="4" fill="var(--bg)"/><text x="895.0" y="305.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">反范式：有账没人记</text>
+  </svg>
+  <div class="node input" style="left:20px;top:80px;width:240px;height:120px"><b>Multi-Agent 的一次决策</b><small>调度 · 执行 · 三权复核&#10;四根梁里跑完一笔活</small></div>
+    <div class="node process" style="left:330px;top:80px;width:210px;height:120px"><b>决策留痕</b><small>谁判的 · 基于哪条约束&#10;怎么被复核的，全部落账</small></div>
+    <div class="node storage" style="left:600px;top:80px;width:250px;height:130px"><b>审计账本 = 记忆</b><small>可随时回放来路&#10;信息不凭空消失，擦除要付代价</small></div>
+    <div class="node storage" style="left:940px;top:80px;width:240px;height:130px"><b>知识资产沉淀</b><small>留痕 → 回流 → 变成规则&#10;可复用的判断资产</small></div>
+    <div class="node external" style="left:600px;top:320px;width:250px;height:100px"><b>教训回流成规矩</b><small>账本里翻出的错&#10;编译回确定性不变量</small></div>
+    <div class="node risk" style="left:950px;top:400px;width:230px;height:100px"><b>留痕却无人审计的账</b><small>日志堆成仓库不看&#10;记忆在那里，谁也不回放</small></div>
+</div>
+</body>
+</html>

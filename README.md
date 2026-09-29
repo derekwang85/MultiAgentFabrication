@@ -39,26 +39,30 @@
 
 ## 系列地图
 
-十四篇正文（第 1-12 篇核心 + 收尾），组织骨架：**总纲 → 约束求解六件套展开 → 调度编排 → 实证项目全景 → 收尾与并入**。加序章（第 0 篇）与后记（第 13 篇），全系列十六篇。
+全系列 15 篇（篇外对照专题 0.5 + 序章 0 + 正文 1-12 + 锚点篇 13），按**四幕递进**：为什么来 → 是什么 → 怎么用 → 到哪去，紧扣一条主线。篇外对照专题 0.5 在序章与篇 1 之间，正面拆解"运行时也会派子 Agent（Codex / TRAE / OpenClaw）"与"Multi-Agent 多 Agent"这一最容易看错的分野。锚点篇 13 立起双层架构（元 Agent 造系统的 / 产品 Agent 在系统里的）与 k1-k4 四层记忆手递手，作为横向脊梁回焊第 08、09、12 篇。
+> **主线：多 Agent 不是让人海战术，而是把一个不透明、不可证明的单点判断器，改造成一个可分工、可校验、可审计的 Multi-Agent。** 完整论纲见 [SCOPE.md](SCOPE.md)。
 
-| # | 标题（暂定） | 核心钩子 | 项目实证 | 对标 GitHub 项目 |
-|:-:|------|------|---------|------------|
-| 0 | 序章：很多 Agent，然后呢？ | 从"会干活的 Agent"到"一群共犯" | SmartQuant 多 Agent 演进 | — |
-| 1 | 约束即配置：从硬编码 if-else 到声明式画像 | 加模型 = 加配置，别改核心 | method 19 Registry + SmartQuant | LangChain / Ollama |
-| 2 | 选型是求解：为什么线性 fallback 是陷阱 | 约束求解 > 预设备胎路径 | method 19 Pipeline Resolver | LangGraph |
-| 3 | 模型要测不要猜：golden data 自评估 | 双阶段探测、震荡冻结 | method 19 Profiler + derekinside | — |
-| 4 | 搭便车的观测：零成本被动监控 | 观测 walk 的 side-effect | method 19 Passive Observer | — |
-| 5 | 少数派也能对：加权共识与防分母错觉 | 确定性规则 > 多数弱智 | method 19 Consensus Engine + derekinside | AutoGen |
-| 6 | 宣称要和事实对齐：评测基线与自证 | 没有基准的分是假分 | method 19 Golden Data + SmartQuant 审查 | promptfoo / langfuse |
-| 7 | 角色编排：从裸 Agent 到 9 角色调度 | 把责任切成注册表 | SmartQuant 9 角色 + ARCHITECTURE | CrewAI / MetaGPT |
-| 8 | 三层路由与门禁：向谁说话、能做什么 | L1/L2/L3 + MCP 三档权限 | SmartQuant multi-agent 集成 | — |
-| 9 | 人工进圈：HITL 闸门与反馈回流 | 人不是看客是循环的一环 | SmartQuant HITL + decision.db | — |
-| 10 | 审计即记忆：把每次决策留在 decision.db | 可归因、可复盘、可回流 | SmartQuant decision.db | langfuse |
-| 11 | 方法论对比：18+ 高分项目的共识与分歧 | 从 MetaGPT 到 STORM 的谱系 | 调研报告 | MetaGPT/AutoGen/STORM... |
-| 12 | 特色主张：什么样的多 Agent 才叫生产力 | 把六件套拧成一个自证闭环 | 全系列收束 | — |
-| 13 | 后记：并入《重构软件工程》 | 多 Agent 是工程重构的一环 | 交棒 | — |
+| # | 标题（中/英） | 核心钩子 | 项目实证 | 对标 GitHub | drawio | 状态 |
+|:-:|------|------|---------|------------|:---:|:-:|
+| 0.5 | 我们 vs Subagent：一个非常容易被看错的对照 / Us vs. Subagents: the Contrast That Keeps Getting Misread | 你都 subagent 了，为什么还折腾 Multi-Agent？ | 分层记忆 / 隔离验证 / decision.db | Codex/TRAE/OpenClaw 运行时子 Agent | ✅ 八维对照图 | ✅ |
+| 0 | 序章：一个不能自我证明的判断器 / The Unprovable Judge | 从黑盒判断器到 Multi-Agent | SmartQuant 演进 | 全谱系 | ✅ Multi-Agent 总览 + 全系列地图 | ✅ |
+| 1 | 单个 Agent 的信任危机 / The Trust Crisis of a Single Agent | 输出有 A/B，谁是对的 | 单 Agent 失效实例 | LangChain | ✅ 判断失效模型 | ✅ |
+| 2 | 分工是判断的可重构 / Division as Reconstructible Judgment | 不是人多，是责任可切 | SmartQuant 三层 | CrewAI/MetaGPT | ✅ 三层分工 | ✅ |
+| 3 | 三条轨与三权 / Three Tracks & Three Powers | 分工要配问责 | 三轨制/WBS/Issue | AutoGen | ✅ 三轨 + 三权 | ✅ |
+| 4 | 选型是求解 / Selection as Constraint Solving | fallback 是陷阱 | 方法 19 Resolver | LangGraph | ✅ 约束求解漏斗 | ✅ |
+| 5 | 约束即配置 / Constraints as Configuration | 加模型=加配置 | 声明式画像 | LangChain/Ollama | ✅ 模型画像 schema | ✅ |
+| 6 | 少数派也能对 / The Minority Can Be Right | 多数一致≠多数正确 | Swarm 对抗决策 | AutoGen | ✅ Swarm 五相 | ✅ |
+| 7 | 宣称对齐事实 / Claims Aligned with Facts | 假分是最大的债 | Bad90 反欺诈 | promptfoo | ✅ 基准对照 Gauge | ✅ |
+| 8 | 治理优先于调度 / Governance before Dispatch | 先立规矩再派人 | 方法 20 门禁 | MCP 权限 | ✅ 治理门禁 | ✅ |
+| 9 | 人不进圈才是浪费 / Humans Inside the Loop | HITL 是闭环非妥协 | SmartQuant HITL | AutoGen | ✅ HITL 回流闭环 | ✅ |
+| 10 | 组织学的一课 / A Lesson in Organization | Multi-Agent=微型组织 | 三权/制衡/问责 | 科层/一般系统论 | ✅ 组织对照 | ✅ |
+| 11 | 生产力的可编程化 / The Programmability of Productivity | 判断力从人转移到可编程系统 | 全系列收束 | 政治经济学/技术史 | ✅ 生产力结构迁移 | ✅ |
+| 12 | 后记：熵的账本 / Epilogue: The Ledger of Entropy | Multi-Agent 的最终计量 | 决策留痕=记忆 | 无（收官对照） | ✅ 审计记忆闭环 | ✅ |
+| 13 | 两层 Agent：造系统的，与在系统里的 / Two Layers of Agents: Those Who Build, and Those Who Work Inside | 双层架构 + 记忆手递手 | 元层建造 → 产物下发 → 产品层当班 | 层级委派对照 | ✅ 双层工厂/车间 + 四层记忆总线 | ✅ |
 
-每篇同一个配方：**方法论 + 真实项目实证 + 可复制清单 + derekinside 活注脚**。
+每篇同一个配方：**钩子 → 主张（回主线）→ 实证（落地取舍）→ 原理飞升 + 交棒**；中英双语双面，配 1-2 张 drawio 并过几何 QA。锚点篇 13（A9）为横向脊梁：元层只读 k1+k2、产品层读 k1+k2+k3，经验只沿 k4 单向回流管道（ADR 审计 + 人终裁）升格为规则。
+
+**谱系对照（2026-09-28 收缩主线）**：主体保留"序章 0 + 正文 1-12 + 锚点 13"不扩篇幅，广度靠每篇正文末尾的「谱系定位」外拓——显式点名本文落在哪一格 Agent 应用（研报/RAG 自动化、SWE Agent/编排框架、Agentic RPA/企业 Copilot、多 Agent 辩论·对抗、MCP/工具生态）、对话哪类应用、又刻意不覆盖什么。序章上线 `fig-00-key` 全系列地图，四幕 + 锚点篇 + 谱系带一张拎起，与 `fig-00-pipeline` Multi-Agent 流水线图互为表里。另在序章与篇 1 之间增补**篇外对照专题 0.5**，正面拆解"运行时 Subagent vs Multi-Agent 多 Agent"——防止读者在抵达锚点前误判"这是另一种 subagent"。
 
 ---
 
@@ -66,10 +70,10 @@
 
 本系列完全继承 AIHarnessMethodology 已验证的写作方法（见 [constitution/README.md](constitution/README.md)）：
 
-- **进化评估闭环**：逐篇评分**严格超前序均值**，至少落实一个**前序未用过的突破维度**，分数记入 `writing-harness/evaluation-scoreboard.json`（复用 `evaluate.py --next / --record`）。
+- **进化评估闭环（荆棘轮）**：逐篇评分**严格超前序均值**，至少落实一个**前序未用过的突破维度**，分数记入 `writing-harness/evaluation-scoreboard.json`（复用 `evaluate.py --next / --record`）。
 - **写作门禁**：完稿先过 `writing-harness/writing-gates.py` 的 G1-G5，门禁不过不进评分。
-- **固定三段配方**：方法论 ~40% + 项目实证 ~40%（每条可指认具体文件）+ 可复制清单 ~20%。
-- **derekinside 活注脚**：每篇结尾留一句"这个机制在 derekinside / derekcoding 里长这样"。
+- **固定配方**：钩子 → 主张（回主线）→ 实证（落地取舍）→ 原理飞升 + 交棒。
+- **配图纪律**：每篇 1-2 张 drawio，走 `diagrams/` 单一数据源生成，过几何 QA（R1-R3）；排版对齐须过 [diagrams/DRAWING-GUIDE.md](diagrams/DRAWING-GUIDE.md) 的对齐规约（上对齐 / 等宽列 / 健中缝 / 居中帽带）。
 - **引经据典**：每篇 2-3 处，取前序未用过的出处（组织学 / 系统论 / 开源历史）。
 
 ---
@@ -97,7 +101,8 @@
 ```
 MultiAgentFabrication/
 ├── README.md                      # 本文件：系列总览
-├── SERIES-PLAN.md                 # 系列策划（v1 十六篇版）
+├── SERIES-PLAN.md                 # 系列策划（篇外对照专题 0.5 + 四幕递进 + 锚点 0.5+0+12+13，共 15 篇）
+├── SCOPE.md                       # 系列纲宪：主线、论纲、差异化、边界声明
 ├── framework.config.json          # 写作适配配置（门禁阈值 / rubric / 评审配比的真值）
 ├── constitution/                  # 项目宪法：开工前必读
 │   ├── README.md                  # 项目身份 / 写作铁律 / 工程原则 / derekcoding 回馈纪律
@@ -111,11 +116,19 @@ MultiAgentFabrication/
 │   ├── SKILL-REGISTRY.md          # 写作技能注册表（3 次晋升机制）
 │   └── article-evaluation-system.md   # 人类可读评分表（镜像 scoreboard JSON）
 ├── writing-harness/               # 写作门禁 + 进化评估（副本自 AIHarness，独立计分）
+├── diagrams/                      # drawio 单一数据源 + 生成器 + 几何 QA
+│   ├── data_src.py                # 全部图数据的单一事实来源（NODES/EDGES/COLORS）
+│   ├── diagram_gen.py             # .drawio + .html 双输出生成器
+│   ├── arch_qa.py                 # 几何 QA（R1 不穿节点 / R2 不共线 / R3 不越界）
+│   └── out/                       # 生成的 .drawio 与 .html 产物
 ├── wiki/                          # llm-wiki 可查询知识库（概念五层分类 + 一手源溯源，W1-W4 门禁）
 ├── feedback-to-derekcoding/       # 回馈 derekcoding-framework 的交付物目录
 │   └── special-for-derekcoding.md # 多 Agent 系列研究成果（专为 derekcoding 定制）
-└── articles/
-    └── 00-prologue.md             # 序章（样稿待审）
+├── articles/
+    ├── 00-prologue.md             # 序章（已定稿，9.8）
+    ├── 00-5-subagent-vs-multiagent.zh.md   # 篇外对照专题 0.5（我们 vs Subagent，已定稿 10.0）
+    ├── 01-*.zh.md … 13-two-tier-meta-product.zh.md   # 正文 1-12 + 锚点篇 13（均已定稿 9.8）
+    └── en/                        # 英文 essay（双语通道，15 篇镜像）
 ```
 
 ---
@@ -140,8 +153,9 @@ MultiAgentFabrication/
 
 ## 写作铁律
 
-1. **不写框架教程**——Menu 级对接教程是红海。
-2. **不写泛 Agent 科普**——多 Agent 是什么，别人已写烂。
-3. **只写「方法论 + 真实项目实证 + 可复制清单」**，实证优先指认 derekcoding / derekinside / SmartQuant 的具体文件。
-4. **不引精确 GitHub star 数**——只用相对定位（调研环境曾出现数据污染）。
-5. **每条实证都能自证**——能跑出来的才写，宣称必须对齐事实。
+1. **主线收紧**——每篇只回答一个 A1-A9 主张，且必须说清它如何服务"Multi-Agent"主线；读者答不出关系即跑题。
+2. **实证不过度承诺**——每篇落到真实项目的取舍、门禁、留痕；写不出来的步骤标"目标值"，绝不硬说跑通了。
+3. **对照不止于弄潮**——每篇与主流框架（CrewAI / AutoGen / MetaGPT / LangGraph / OpenAI Swarm）显式碰一次，讲清共识与缺口。
+4. **配图过硬**——每篇 1-2 张 drawio，走单一数据源生成，几何 QA（R1-R3）全过。
+5. **不引精确 GitHub star 数**——只用相对定位（调研环境曾出现数据污染）。
+6. **每条实证都能自证**——能跑出来的才写，宣称必须对齐事实。

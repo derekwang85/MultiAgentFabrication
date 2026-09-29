@@ -3,7 +3,7 @@
   "metadata": {
     "project_name": "MultiAgentFabrication",
     "author": "derekwang85",
-    "identity_summary": "从 derekcoding-framework methodology #19 约束求解 + SmartQuant 多Agent应用调度淬炼的「多Agent形成生产力」方法论文献",
+    "identity_summary": "多Agent形成生产力方法论文献（约束求解六件套 + 调度编排 + 可自证闭环）",
     "created_from_framework": "derekwritting-framework",
     "framework_version": "adapted-lite",
     "adaptation_note": "在 derekwritting-framework 基础上适配：门禁 G1-G5，叠加本系列进化评估闭环（evaluate.py 独立计分）。"
@@ -12,40 +12,96 @@
     "g1_style_density_threshold": 6.0,
     "g1_style_min_score": 35,
     "g5_rubric_mean_threshold": 3.8,
-    "gate_sequence": ["G1", "G2", "G3", "G4", "G5"],
+    "gate_sequence": [
+      "G1",
+      "G2",
+      "G3",
+      "G4",
+      "G5"
+    ],
     "note": "g5_rubric_mean_threshold 由母版默认 3.5 收紧至 3.8：本系列为科研型深度方法论与博客发布混合形态，trust # robustness 加权，人工尺度阈值需上提。"
   },
   "judge": {
     "rubric_dims": [
-      { "key": "Clarity of Purpose", "desc": "目标明显且全程对齐" },
-      { "key": "Audience Specificity", "desc": "写给特定读者特定需求" },
-      { "key": "Point of View", "desc": "清晰可信的判断" },
-      { "key": "Specificity", "desc": "细节/约束/例子丰富" },
-      { "key": "Insight Density", "desc": "多个真正锐化认知的观察" },
-      { "key": "Structural Focus", "desc": "强调得当、节奏清晰" },
-      { "key": "Voice Credibility", "desc": "像真实作者有意图地说话" },
-      { "key": "Reader Usefulness", "desc": "帮读者行动/决策/理解" },
-      { "key": "Trustworthiness", "desc": "校准、可信、有界" },
-      { "key": "Memorability", "desc": "有留存的句子" }
+      {
+        "key": "Clarity of Purpose",
+        "desc": "目标明显且全程对齐"
+      },
+      {
+        "key": "Audience Specificity",
+        "desc": "写给特定读者特定需求"
+      },
+      {
+        "key": "Point of View",
+        "desc": "清晰可信的判断"
+      },
+      {
+        "key": "Specificity",
+        "desc": "细节/约束/例子丰富"
+      },
+      {
+        "key": "Insight Density",
+        "desc": "多个真正锐化认知的观察"
+      },
+      {
+        "key": "Structural Focus",
+        "desc": "强调得当、节奏清晰"
+      },
+      {
+        "key": "Voice Credibility",
+        "desc": "像真实作者有意图地说话"
+      },
+      {
+        "key": "Reader Usefulness",
+        "desc": "帮读者行动/决策/理解"
+      },
+      {
+        "key": "Trustworthiness",
+        "desc": "校准、可信、有界"
+      },
+      {
+        "key": "Memorability",
+        "desc": "有留存的句子"
+      }
     ],
-    "rubric_weight_note": "科研定位下 Trustworthiness / Specificity / Point of View 视为高频关键分（W 档）；英文稿对齐 derekwritting-framework methodology/08-rubric-weights-en.md 权重口径，本地 EVALUATION-EN.md 不可复用哲学见 docs/WRITING-FRAMEWORK.md",
     "style_dims": [
-      "Directness", "Rhythm", "Trust", "Authenticity", "Density"
-    ]
+      "Directness",
+      "Rhythm",
+      "Trust",
+      "Authenticity",
+      "Density"
+    ],
+    "novel_claims_enabled": true,
+    "prometheus_enabled": false,
+    "rubric_weight_note": "科研定位下 Trustworthiness / Specificity / Point of View 视为高频关键分（W 档）；英文稿对齐 derekwritting-framework methodology/08-rubric-weights-en.md 权重口径，本地 EVALUATION-EN.md 不可复用哲学见 docs/WRITING-FRAMEWORK.md"
   },
   "review_swarm": {
     "positive_roles": 5,
     "with_adversary": true,
-    "extra_roles": ["方法论论证审计员", "读者代表"],
+    "extra_roles": [
+      "方法论论证审计员",
+      "读者代表"
+    ],
     "prompt": "writing-harness/review-swarm-prompt.md",
     "note": "在框架默认 5 正面+反方基础上，为科研形态加方法论论证审计员与读者代表，用于 G5 分离评审。"
+  },
+  "team": {
+    "team_root": "team-memory",
+    "owner": "derekwang85",
+    "promote_refs_threshold": 3,
+    "aging_days": 30,
+    "auto_capture": false
   },
   "evolution_loop": {
     "enabled": true,
     "scoreboard": "writing-harness/evaluation-scoreboard.json",
     "scale_max": 10.0,
     "rule": "新文章写作水平必须严格超过前序所有文章的平均分（基准线）",
-    "breakthrough_dims": ["遣词造句", "经典案例", "名言名句引用"],
+    "breakthrough_dims": [
+      "遣词造句",
+      "经典案例",
+      "名言名句引用"
+    ],
     "bilingual": {
       "primary_lang": "zh",
       "en_gate": "writing-harness/writing-gates-en.py"
@@ -66,11 +122,11 @@
       "allusion_isolation": "constitution/allusion-isolation.md",
       "wiki_index": "wiki/index.md",
       "wiki_agents": "wiki/AGENTS.md",
-      "review_swarm_prompt": "writing-harness/review-swarm-prompt.md (待回源: C:\\Users\\A\\Documents\\derekwritting-framework\\tools\\review-swarm-prompt.md)",
-      "scannability_check": "writing-harness/scannability-check.py (待回源: C:\\Users\\A\\Documents\\derekwritting-framework\\tools\\scannability-check.py)",
+      "review_swarm_prompt": "writing-harness/review-swarm-prompt.md (已回源 2026-09-26, 源: C:\\Users\\A\\Documents\\derekwritting-framework\\tools\\review-swarm-prompt.md)",
+      "scannability_check": "writing-harness/scannability-check.py (已回源 2026-09-26, 源: C:\\Users\\A\\Documents\\derekwritting-framework\\tools\\scannability-check.py)",
       "english_rubric_weights": "writing-harness/EVALUATION-EN.md"
     },
-    "schedule_note": "由外部定时巡检（Schedule cron）周期性触发 patrol.py；也可手动一键运行。",
+    "schedule_note": "由外部定时巡检（Schedule cron）周期性触发；注：母版 derekwritting-framework 全仓无 patrol.py 工具，本配置的\"patrol\"为声明性覆盖清单，实际巡检依赖外部调度器逐项调用 assets 中的工具（writing-gates.py / evaluate.py / scannability-check.py），非单一 patrol.py 进程。",
     "log": "writing-harness/patrol-log.json",
     "sibling_series": {
       "path": "../RefactoringSoftwareEngineering",

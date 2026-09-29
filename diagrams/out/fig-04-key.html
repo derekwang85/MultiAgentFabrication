@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>选型是把候选集送进约束求解漏斗：宁可显式失败，不要模糊兜底</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1360px; height:640px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>选型是把候选集送进约束求解漏斗：宁可显式失败，不要模糊兜底</h1>
+<div class="sub">A3 · 选哪个模型、组什么样，应是约束满足问题，不是拍脑袋的 fallback 栈</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 640">
+  <polyline points="130.0,338.0 292.5,338.0 292.5,132.0 455.0,132.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="130.0" cy="338.0" r="2.6" fill="var(--line)"/><circle cx="455.0" cy="132.0" r="3.0" fill="var(--line)"/>
+    <rect x="264.9" y="217.0" width="55.2" height="18.0" rx="4" fill="var(--bg)"/><text x="292.5" y="232.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">硬约束先收窄</text>
+    <polyline points="455.0,132.0 558.8,132.0 558.8,292.0 662.5,292.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="455.0" cy="132.0" r="2.6" fill="var(--line)"/><circle cx="662.5" cy="292.0" r="3.0" fill="var(--line)"/>
+    <rect x="527.5" y="197.0" width="62.4" height="18.0" rx="4" fill="var(--bg)"/><text x="558.8" y="212.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">软约束打分排序</text>
+    <polyline points="662.5,292.0 766.2,292.0 766.2,452.0 870.0,452.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="662.5" cy="292.0" r="2.6" fill="var(--line)"/><circle cx="870.0" cy="452.0" r="3.0" fill="var(--line)"/>
+    <rect x="742.2" y="357.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="766.2" y="372.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">再收窄一档</text>
+    <polyline points="870.0,452.0 1032.5,452.0 1032.5,320.0 1195.0,320.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="870.0" cy="452.0" r="2.6" fill="var(--line)"/><circle cx="1195.0" cy="320.0" r="3.0" fill="var(--line)"/>
+    <rect x="994.1" y="380.0" width="76.8" height="18.0" rx="4" fill="var(--bg)"/><text x="1032.5" y="395.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">只剩唯一，锁定理由</text>
+    <polyline points="130.0,338.0 375.0,338.0 375.0,515.0 620.0,515.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="130.0" cy="338.0" r="2.6" fill="var(--line)"/><circle cx="620.0" cy="515.0" r="3.0" fill="var(--line)"/>
+    <rect x="336.6" y="413.0" width="76.8" height="18.0" rx="4" fill="var(--bg)"/><text x="375.0" y="428.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">本能：有问题就兜底</text>
+  </svg>
+  <div class="node storage" style="left:40px;top:290px;width:180px;height:96px"><b>候选模型集</b><small>本地 / SOTA / 开源 / 专有&#10;一次只解决一个选型问题</small></div>
+    <div class="node process" style="left:340px;top:90px;width:230px;height:84px"><b>① 严格过滤</b><small>硬约束硬性排他&#10;不满足就淘汰，不留幸存者</small></div>
+    <div class="node process" style="left:560px;top:250px;width:205px;height:84px"><b>② 渐进松弛</b><small>软约束打分排序&#10;约束不足→放宽一档再比</small></div>
+    <div class="node process" style="left:780px;top:410px;width:180px;height:84px"><b>③ 显式失败</b><small>无解就宣告 no-solution&#10;不拿模糊兜底补位</small></div>
+    <div class="node storage" style="left:1080px;top:260px;width:230px;height:120px"><b>选型结果</b><small>锁定「模型 + 配置 + 理由」&#10;何时换、由谁换，都写进证据</small></div>
+    <div class="node risk" style="left:520px;top:470px;width:200px;height:90px"><b>fallback 陷阱</b><small>一遇到跨域就兜底&#10;兜得越多，链越不可证</small></div>
+</div>
+</body>
+</html>

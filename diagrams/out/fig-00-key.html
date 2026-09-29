@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>全系列地图：一根主线，四幕递进，外加一条横向脊梁</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1420px; height:1420px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>全系列地图：一根主线，四幕递进，外加一条横向脊梁</h1>
+<div class="sub">主线（Multi-Agent）→ 四幕（为什么来 / 是什么 / 怎么用 / 到哪去）→ 锚点篇（双层架构横向贯穿）+ 对照谱系（站在更广的 Agent 应用上立论，而非只谈编排）</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1420 1420">
+  <polyline points="200.0,182.0 470.0,182.0 740.0,182.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="200.0" cy="182.0" r="2.6" fill="var(--line)"/><circle cx="740.0" cy="182.0" r="3.0" fill="var(--line)"/>
+    <polyline points="200.0,322.0 360.0,322.0 520.0,322.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="200.0" cy="322.0" r="2.6" fill="var(--line)"/><circle cx="520.0" cy="322.0" r="3.0" fill="var(--line)"/>
+    <rect x="351.0" y="307.0" width="48.0" height="18.0" rx="4" fill="var(--bg)"/><text x="375.0" y="322.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">双A1收束</text>
+    <polyline points="200.0,462.0 360.0,462.0 520.0,462.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="200.0" cy="462.0" r="2.6" fill="var(--line)"/><circle cx="520.0" cy="462.0" r="3.0" fill="var(--line)"/>
+    <polyline points="200.0,632.0 342.5,632.0 485.0,632.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="200.0" cy="632.0" r="2.6" fill="var(--line)"/><circle cx="485.0" cy="632.0" r="3.0" fill="var(--line)"/>
+    <rect x="354.6" y="617.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="375.0" y="632.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">五链主干</text>
+    <polyline points="200.0,912.0 360.0,912.0 520.0,912.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="200.0" cy="912.0" r="2.6" fill="var(--line)"/><circle cx="520.0" cy="912.0" r="3.0" fill="var(--line)"/>
+    <rect x="354.6" y="897.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="375.0" y="912.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">原理飞升</text>
+    <polyline points="200.0,1112.0 470.0,1112.0 740.0,1112.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="200.0" cy="1112.0" r="2.6" fill="var(--line)"/><circle cx="740.0" cy="1112.0" r="3.0" fill="var(--line)"/>
+    <rect x="354.6" y="1097.0" width="40.8" height="18.0" rx="4" fill="var(--bg)"/><text x="375.0" y="1112.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">横向贯穿</text>
+    <polyline points="988.0,912.0 594.0,912.0 594.0,1112.0 200.0,1112.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="988.0" cy="912.0" r="2.6" fill="var(--line)"/><circle cx="200.0" cy="1112.0" r="3.0" fill="var(--line)"/>
+    <rect x="537.6" y="997.0" width="112.8" height="18.0" rx="4" fill="var(--bg)"/><text x="594.0" y="1012.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">目的态 → 由锚点横贯到全部</text>
+  </svg>
+  <div class="node process" style="left:60px;top:20px;width:280px;height:64px"><b>Multi-Agent 主线</b><small>多 Agent = 判断的可分工 · 可校验 · 可审计</small></div>
+    <div class="node process" style="left:60px;top:150px;width:280px;height:64px"><b>序章 · 本篇</b><small>一个不能自我证明的判断器 (A1)</small></div>
+    <div class="node process" style="left:60px;top:290px;width:280px;height:64px"><b>第一幕 · 为什么来</b><small>熵从哪来：单判断器失效</small></div>
+    <div class="node process" style="left:60px;top:430px;width:280px;height:64px"><b>第二幕 · 是什么</b><small>分工的本质：责权可切 + 配问责</small></div>
+    <div class="node process" style="left:60px;top:600px;width:280px;height:64px"><b>第三幕 · 怎么用</b><small>选型/编排/校验/治理/HITL 五链</small></div>
+    <div class="node process" style="left:60px;top:880px;width:280px;height:64px"><b>第四幕 · 到哪去</b><small>抽象组织学原理 → 推到行业社会</small></div>
+    <div class="node process" style="left:60px;top:1080px;width:280px;height:64px"><b>锚点篇 · 横向脊梁</b><small>双层架构：造系统的 vs 在系统里的 (A9)</small></div>
+    <div class="node neutral" style="left:410px;top:150px;width:660px;height:64px"><b>这篇（序章）起一个头</b><small>立主线：判断要可管理，不是 Agent 变多</small></div>
+    <div class="node neutral" style="left:410px;top:290px;width:220px;height:64px"><b>篇1 · 单个判断器的信任危机</b><small>A1 不可验证 / 分工 / 追溯</small></div>
+    <div class="node neutral" style="left:410px;top:430px;width:220px;height:64px"><b>篇2 · 分工是判断的可重构</b><small>A2 不是人多，是责权可切</small></div>
+    <div class="node neutral" style="left:644px;top:430px;width:220px;height:64px"><b>篇3 · 三条轨与三权</b><small>A2 分工必须配问责</small></div>
+    <div class="node neutral" style="left:410px;top:600px;width:150px;height:64px"><b>篇4 · 选型是求解</b><small>A3 约束满足</small></div>
+    <div class="node neutral" style="left:574px;top:600px;width:150px;height:64px"><b>篇5 · 约束即配置</b><small>A3 声明式画像</small></div>
+    <div class="node neutral" style="left:738px;top:600px;width:150px;height:64px"><b>篇6 · 少数派也能对</b><small>A4 对抗决策</small></div>
+    <div class="node neutral" style="left:902px;top:600px;width:150px;height:64px"><b>篇7 · 宣称对齐事实</b><small>A4 基准对照</small></div>
+    <div class="node neutral" style="left:1066px;top:600px;width:150px;height:64px"><b>篇8 · 治理优先于调度</b><small>A5 门禁</small></div>
+    <div class="node neutral" style="left:1230px;top:600px;width:150px;height:64px"><b>篇9 · 人不进圈才是浪费</b><small>A6 HITL 闭环</small></div>
+    <div class="node neutral" style="left:410px;top:880px;width:220px;height:64px"><b>篇10 · 组织学的一课</b><small>A7 分工/制衡/问责</small></div>
+    <div class="node neutral" style="left:644px;top:880px;width:220px;height:64px"><b>篇11 · 生产力的可编程化</b><small>A8 信息处理劳动力</small></div>
+    <div class="node storage" style="left:878px;top:880px;width:220px;height:64px"><b>篇12 · 熵的账本</b><small>A8 计量的生产力（目的态）</small></div>
+    <div class="node external" style="left:410px;top:1080px;width:660px;height:64px"><b>篇13 · 两层 Agent：造系统的，与在系统里的</b><small>A9 元层(造/验) vs 产品层(干/审)，k1-k4 记忆总线横向贯穿全部正文</small></div>
+    <div class="zone" style="left:60px;top:1220px;width:1300px;height:180px"><span class="zone-label">横向对照 · 站在更广的 Agent 应用谱系上立论（正文每篇给谱系中的一种应用定位，而非闭门谈编排）</span></div>
+    <div class="node input" style="left:100px;top:1310px;width:230px;height:56px"><b>RAG / 研报自动化</b><small>检索+写作，可不必多Agent</small></div>
+    <div class="node risk" style="left:360px;top:1310px;width:230px;height:56px"><b>SWE Agent / 编排框架</b><small>本系列对照主场（CrewAI/AutoGen/…）</small></div>
+    <div class="node input" style="left:620px;top:1310px;width:230px;height:56px"><b>Agentic RPA / 企业Copilot</b><small>操作层自动化，人在上头</small></div>
+    <div class="node process" style="left:880px;top:1310px;width:230px;height:56px"><b>多Agent辩论·对抗</b><small>少数派也能对（对应篇6）</small></div>
+    <div class="node storage" style="left:1140px;top:1310px;width:230px;height:56px"><b>MCP / 工具生态</b><small>能力的补给，不替代判断</small></div>
+</div>
+</body>
+</html>

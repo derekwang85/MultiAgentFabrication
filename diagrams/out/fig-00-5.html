@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>同样是'分身'：Subagent 是执行原语，Multi-Agent 是主体组织</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1400px; height:1500px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>同样是'分身'：Subagent 是执行原语，Multi-Agent 是主体组织</h1>
+<div class="sub">A0·对照专题 —— 表面都'能派 subagent'，实则架构、决策、调用、可塑、记忆、可证、可溯八维全不同；Subagent 是工具，Multi-Agent 是责任主体</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1500">
+  <polyline points="810.0,64.0 682.5,64.0 682.5,168.0 555.0,168.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="810.0" cy="64.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="168.0" r="3.0" fill="var(--line)"/>
+    <polyline points="810.0,64.0 937.5,64.0 937.5,168.0 1065.0,168.0" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-dasharray="6,4"/><circle cx="810.0" cy="64.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="168.0" r="3.0" fill="var(--line)"/>
+    <rect x="891.9" y="109.0" width="91.2" height="18.0" rx="4" fill="var(--bg)"/><text x="937.5" y="124.0" font-size="11" fill="var(--muted)" text-anchor="middle" dominant-baseline="middle">区别不在'有没有分身'</text>
+    <polyline points="555.0,168.0 555.0,285.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="168.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="285.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,285.0 555.0,415.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="285.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="415.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,415.0 555.0,545.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="415.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="545.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,545.0 555.0,675.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="545.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="675.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,675.0 555.0,805.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="675.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="805.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,805.0 555.0,935.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="805.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="935.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,935.0 555.0,1065.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="935.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="1065.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,1065.0 555.0,1195.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="1065.0" r="2.6" fill="var(--line)"/><circle cx="555.0" cy="1195.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,168.0 1065.0,285.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="168.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="285.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,285.0 1065.0,415.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="285.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="415.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,415.0 1065.0,545.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="415.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="545.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,545.0 1065.0,675.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="545.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="675.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,675.0 1065.0,805.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="675.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="805.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,805.0 1065.0,935.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="805.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="935.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,935.0 1065.0,1065.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="935.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="1065.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,1065.0 1065.0,1195.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="1065.0" r="2.6" fill="var(--line)"/><circle cx="1065.0" cy="1195.0" r="3.0" fill="var(--line)"/>
+    <polyline points="555.0,1195.0 682.5,1195.0 682.5,1365.0 810.0,1365.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="555.0" cy="1195.0" r="2.6" fill="var(--line)"/><circle cx="810.0" cy="1365.0" r="3.0" fill="var(--line)"/>
+    <polyline points="1065.0,1195.0 937.5,1195.0 937.5,1365.0 810.0,1365.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="1065.0" cy="1195.0" r="2.6" fill="var(--line)"/><circle cx="810.0" cy="1365.0" r="3.0" fill="var(--line)"/>
+  </svg>
+  <div class="zone" style="left:340px;top:20px;width:940px;height:88px"><span class="zone-label">容易看错的一点：Codex / TRAE / OpenClaw 运行时也会'派子 Agent'</span><span class="zone-note">表面'大家都有分身' → 于是被问：你都 subagent 了，为什么还折腾 Multi-Agent？</span></div>
+    <div class="node neutral" style="left:340px;top:140px;width:430px;height:56px"><b>Subagent · 执行分身</b><small>主控临时派出的'手'（工具）</small></div>
+    <div class="node process" style="left:850px;top:140px;width:430px;height:56px"><b>Multi-Agent</b><small>元层/产品层，判断的责任主体（组织）</small></div>
+    <div class="node neutral" style="left:340px;top:240px;width:430px;height:90px"><b>① 架构 · 临时原语</b><small>依附主控，无独立结构</small></div>
+    <div class="node neutral" style="left:340px;top:370px;width:430px;height:90px"><b>② 生命周期 · 瞬时</b><small>随任务而生灭，无跨任务身份</small></div>
+    <div class="node neutral" style="left:340px;top:500px;width:430px;height:90px"><b>③ 决策权责 · 归主控</b><small>分身几乎无独立裁决权</small></div>
+    <div class="node neutral" style="left:340px;top:630px;width:430px;height:90px"><b>④ 大模型调用 · 复用</b><small>挤同一主上下文，无画像</small></div>
+    <div class="node neutral" style="left:340px;top:760px;width:430px;height:90px"><b>⑤ 可塑性 · 一次性</b><small>任务结束即消失，不可成长</small></div>
+    <div class="node neutral" style="left:340px;top:890px;width:430px;height:90px"><b>⑥ 记忆归属 · 用即弃</b><small>无跨层边界，属权不清</small></div>
+    <div class="node neutral" style="left:340px;top:1020px;width:430px;height:90px"><b>⑦ 可证明性 · 直接采信</b><small>不校验分身的中间判定</small></div>
+    <div class="node neutral" style="left:340px;top:1150px;width:430px;height:90px"><b>⑧ 可追溯性 · 不留痕</b><small>决策不落账，错误悄悄重复</small></div>
+    <div class="node process" style="left:850px;top:240px;width:430px;height:90px"><b>① 架构 · 职责主体</b><small>元/产品层不对称结构</small></div>
+    <div class="node process" style="left:850px;top:370px;width:430px;height:90px"><b>② 生命周期 · 持续当班</b><small>跨会话持续，有角色注册表</small></div>
+    <div class="node process" style="left:850px;top:500px;width:430px;height:90px"><b>③ 决策权责 · 分散可校验</b><small>对抗/裁决/验证三权分工</small></div>
+    <div class="node process" style="left:850px;top:630px;width:430px;height:90px"><b>④ 大模型调用 · 求解</b><small>声明式画像：能力/成本/速度</small></div>
+    <div class="node process" style="left:850px;top:760px;width:430px;height:90px"><b>⑤ 可塑性 · 可演进</b><small>k3 长期记忆沉淀复用</small></div>
+    <div class="node storage" style="left:850px;top:890px;width:430px;height:90px"><b>⑥ 记忆归属 · k1-k4 分层</b><small>元只读 k1+k2，产品读 k1+k2+k3，k4 单向回流</small></div>
+    <div class="node process" style="left:850px;top:1020px;width:430px;height:90px"><b>⑦ 可证明性 · 隔离验证+门禁</b><small>验证者不知修复思路，只验交付物</small></div>
+    <div class="node storage" style="left:850px;top:1150px;width:430px;height:90px"><b>⑧ 可追溯性 · 有账本</b><small>每步落 decision.db，ADR留痕可回滚</small></div>
+    <div class="node external" style="left:340px;top:1310px;width:940px;height:110px"><b>真区别一句话：Subagent 是'主控伸出去干活的手'，Multi-Agent 是'让判断可分工、可校验、可审计的责任组织'</b><small>手干不干活不是重点；判断被分成谁负责、谁裁决、谁证明、谁记账 —— 这才是值得折腾 Multi-Agent 的原因</small></div>
+</div>
+</body>
+</html>

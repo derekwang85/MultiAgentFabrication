@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>判断可重构：一整块切成三轨，责任与确信度守恒</title>
+<style>
+
+  :root { color-scheme: light dark; --bg:#f8fafc; --fg:#172033; --muted:#5b6475; --line:#64748b;
+    --neutral:#e2e8f0; --input:#bfdbfe; --process:#c7d2fe; --storage:#99f6e4;
+    --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0f172a; --fg:#e5e7eb; --muted:#a3adbd;
+    --line:#94a3b8; --neutral:#334155; --input:#1d4ed8; --process:#4338ca; --storage:#0f766e;
+    --external:#92400e; --risk:#991b1b; --wiki:#5b4b9e; } }
+  @media print {
+    :root { color-scheme: light; --bg:#ffffff; --fg:#111827; --muted:#4b5563; --line:#6b7280;
+      --neutral:#e5e7eb; --input:#bfdbfe; --process:#c7d2fe; --storage:#a7f3d0;
+      --external:#fde68a; --risk:#fecaca; --wiki:#ddd6fe; }
+    body { margin:0; }
+    .stage { border:0.025in solid #6b7280; break-inside:avoid; }
+    .node, .zone { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+
+  body { background:var(--bg); color:var(--fg); margin:16px; line-height:1.525; font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+  h1 { font-size:17px; margin:0 0 4px; font-weight:600; letter-spacing:.025em; }
+  .sub { font-size:12px; color:var(--muted); margin-bottom:12px; line-height:1.55; }
+  .stage { position:relative; width:1500px; height:720px; border:1px solid var(--line); border-radius:8px; margin-top:8px; overflow:hidden; }
+  svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .node { position:absolute; border-radius:8px; border:1.4px solid; padding:6px 10px; box-sizing:border-box;
+    font-size:12.5px; display:flex; flex-direction:column; justify-content:center; z-index:2; color:var(--fg); }
+  .node b { font-weight:600; }
+  .node small { font-size:10px; color:var(--fg); opacity:.72; margin-top:2px; line-height:1.3; }
+  .node.neutral   { background:var(--neutral); border-color:var(--line); }
+  .node.input     { background:var(--input);   border-color:var(--line); }
+  .node.process   { background:var(--process); border-color:var(--line); }
+  .node.storage   { background:var(--storage); border-color:var(--line); }
+  .node.external  { background:var(--external);border-color:var(--line); }
+  .node.risk      { background:var(--risk);    border-color:var(--line); }
+  .zone { position:absolute; border:1.4px dashed var(--line); border-radius:10px; z-index:1; }
+  .zone.tinted { background:color-mix(in srgb, var(--line) 7%, transparent); }
+  .zone.hl { border-style:solid; border-width:2px; border-color:var(--process); background:color-mix(in srgb, var(--process) 8%, transparent); }
+  .zone-label { position:absolute; top:-4px; left:10px; font-size:12px; color:var(--muted);
+    background:var(--bg); padding:0 6px; font-weight:600; white-space:nowrap; }
+  .zone-note { position:absolute; left:14px; right:14px; bottom:8px; font-size:11px;
+    color:var(--muted); line-height:1.4; opacity:.94; }
+</style>
+</head>
+<body>
+<h1>判断可重构：一整块切成三轨，责任与确信度守恒</h1>
+<div class="sub">主张 A2 · 篇 2 抽象结构 —— 一个判断源按三轨切开：切开后责任可指认、确信度不丢失</div>
+<div class="stage">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 720">
+  <polyline points="390.0,360.0 390.0,605.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="390.0" cy="360.0" r="2.6" fill="var(--line)"/><circle cx="390.0" cy="605.0" r="3.0" fill="var(--line)"/>
+    <polyline points="670.0,360.0 670.0,605.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="670.0" cy="360.0" r="2.6" fill="var(--line)"/><circle cx="670.0" cy="605.0" r="3.0" fill="var(--line)"/>
+    <polyline points="950.0,360.0 950.0,605.0" fill="none" stroke="var(--line)" stroke-width="1.6" /><circle cx="950.0" cy="360.0" r="2.6" fill="var(--line)"/><circle cx="950.0" cy="605.0" r="3.0" fill="var(--line)"/>
+  </svg>
+  <div class="node input" style="left:560px;top:60px;width:380px;height:120px"><b>一整块判断</b><small>输入一次 · 答案一次 · 不可分</small></div>
+    <div class="zone tinted" style="left:250px;top:260px;width:1000px;height:180px"><span class="zone-label">三条切分轨</span><span class="zone-note">女巫切：一整块被重构成可分工的轨道</span></div>
+    <div class="node process" style="left:290px;top:325px;width:200px;height:70px"><b>切 · 责权</b><small>谁负责，写清楚</small></div>
+    <div class="node process" style="left:570px;top:325px;width:200px;height:70px"><b>切 · 校验</b><small>做对没有，单列一轨</small></div>
+    <div class="node process" style="left:850px;top:325px;width:200px;height:70px"><b>切 · 审计</b><small>每一步都能回查</small></div>
+    <div class="node storage" style="left:290px;top:560px;width:200px;height:90px"><b>责任可指认</b><small>漏了谁都找得到</small></div>
+    <div class="node external" style="left:570px;top:560px;width:200px;height:90px"><b>复核可信</b><small>多一双眼睛验</small></div>
+    <div class="node process" style="left:850px;top:560px;width:200px;height:90px"><b>问责闭环</b><small>切开之后仍然守恒</small></div>
+</div>
+</body>
+</html>

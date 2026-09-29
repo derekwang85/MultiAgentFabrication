@@ -1,75 +1,121 @@
 # 《MultiAgent Fabrication · 多 Agent 生产力编织》系列策划
 
-> 状态：定稿 v1.0 ｜ 日期：2026-09-05 ｜ 作者：derekwang85（腾讯云 TVP / 架构师名人堂）
-> 定位：一套原创「多 Agent 形成生产力」方法论，以 derekcoding #19 约束求解 + SmartQuant 多 Agent 调度为母版，对照 GitHub 高分项目做对比与升华。完成后并入《RefactoringSoftwareEngineering》体系。
+> 状态：重设计 v2.0 ｜ 日期：2026-09-05 ｜ 作者：derekwang85
+> 定位：一套原创「多 Agent 形成生产力」方法论。以 derekcoding #19 约束求解 + SmartQuant 多 Agent 调度为母版，与 CrewAI / AutoGen / MetaGPT / LangGraph / OpenAI Swarm 显式碰撞后提炼共识与分歧；再从方法抽象到组织学原理，进而推演企业、行业与社会的生产力结构改造。
+> 总纲见 `SCOPE.md`：本计划是其落地的文章排布，主线必须严格收紧到"Multi-Agent 的可分工、可校验、可审计化"。
 
 ---
 
-## 一、核心定位
+## 一、主线程（一句话）
 
-**一句话：** 多 Agent 的生产力不在编排得漂亮，而在选型 / 调用 / 校验 / 自愈四链路闭环、全部声明式且可自证，外加"宣称对齐"的诚信底线。
+**多 Agent 不是让人海战术，而是把一个不透明、不可证明的单点判断器，改造成一个可分工、可校验、可审计的 Multi-Agent。** 生产力来自熵被管理，不是 Agent 多。
 
-**差异三问（别人没回答）：**
-1. 怎么选模型？（约束求解，非 fallback）
-2. 怎么让输出可信？（golden data 自评 + 精度加权共识 + 防分母错觉）
-3. 怎么证明真的更高效？（基准对照 + 参数快照 + decision.db 审计）
+## 二、系列结构：篇外对照专题 + 四幕递进 + 锚点篇（0.5 + 0 + 1-12 + 锚点 13）
 
-## 二、差异化
+系列按 **为什么来 → 是什么 → 怎么用 → 到哪去** 四幕递进，正好对应需求的核心四问。每篇一张数据表，全系列守住一条主线。序章与篇 1 之间新增 **篇外对照专题 0.5（我们 vs Subagent）**，正面拆解"运行时也会派子 Agent（Codex / TRAE / OpenClaw）"与"Multi-Agent 多 Agent"这一最容易看错的分野。定稿后新增 **锚点篇 13（双层架构）**：不动前四幕正文的叙事顺序，把"元 Agent / 产品 Agent"双层架构 + k1-k4 记忆手递手立为显性主线，并回改 08/09/12 三篇与双层/k4 回流接缝，作为全系列的横向脊梁。
 
-- 主流框架（MetaGPT / AutoGen / LangGraph / CrewAI / Swarm）教你"组织长什么样"，不教你"怎么证明它更高效、为什么值得上多 Agent"。
-- 我们补上这块空白：把"多 Agent 形成生产力"当作一个**可度量、可自证、可回流生产流程**的工程命题。
+### 篇外对照专题 · 我们 vs Subagent（0.5，序章与篇 1 之间）
 
-## 三、系列文章清单（十六篇，0 + 1-12 正文 + 13 后记）
+| # | 状态 | 主张 | 标题（中/英） | 钩子 | 实证 | 主流对照 | drawio | 突破维度 |
+|:-:|:-:|------|------|------|------|---------|:---:|------|
+| 0.5 | ✅ | 主线前置 | 我们 vs Subagent：一个非常容易被看错的对照 / Us vs. Subagents: the Contrast That Keeps Getting Misread | 你都 subagent 了，为什么还折腾 Multi-Agent？ | SmartQuant 分层记忆 / 隔离验证 / decision.db | Codex/TRAE/OpenClaw 运行时子 Agent | ①八维对照图 | 认知科学（梅林·唐纳德：个体用工具 vs 外化成公共资产的社会性思维） |
 
-| # | 选题 | 核心钩子 | 项目实证 | 对标 GitHub | 建议目标分 |
-|:-:|------|---------|---------|------------|:---:|
-| 0 | 序章：很多 Agent，然后呢？ | 从会干活到一群共犯 | SmartQuant 演进 | — | 8.7 |
-| 1 | 约束即配置 | 加模型 = 加配置 | #19 Registry | LangChain/Ollama | 8.8 |
-| 2 | 选型是求解 | fallback 是陷阱 | #19 Resolver | LangGraph | 8.8 |
-| 3 | 模型要测不要猜 | golden data 自评 | #19 Profiler + derekinside | — | 8.9 |
-| 4 | 搭便车的观测 | 零成本被动监控 | #19 Observer | — | 8.9 |
-| 5 | 少数派也能对 | 加权共识防分母错觉 | #19 Consensus + derekinside | AutoGen | 8.9 |
-| 6 | 宣称要和事实对齐 | 没有基准的分是假分 | #19 Golden Data + SmartQuant 审查 | promptfoo/langfuse | 8.9 |
-| 7 | 角色编排 | 裸 Agent 到 9 角色 | SmartQuant 9 角色 + ARCHITECTURE | CrewAI/MetaGPT | 9.0 |
-| 8 | 三层路由与门禁 | 向谁说话、能做什么 | SmartQuant L1/L2/L3 + MCP 权限 | — | 9.0 |
-| 9 | 人工进圈 | HITL 闸门与反馈回流 | SmartQuant HITL + decision.db | AutoGen | 9.0 |
-| 10 | 审计即记忆 | 决策留痕可复盘 | SmartQuant decision.db | langfuse | 9.0 |
-| 11 | 方法论对比 | 18+ 高分项目共识与分歧 | 调研报告 | 全谱系 | 9.1 |
-| 12 | 特色主张收束 | 什么才叫生产力 | 全系列收束 | — | 9.1 |
-| 13 | 后记：并入《重构软件工程》 | 多 Agent 是工程重构一环 | 交棒 | — | 9.2 |
+> 对照专题 0.5 作用：把"有没有分身"从误诊里拆出来——Subagent 是主控临时派出的执行原语（瞬时、用即弃、单点听令、复用模型），Multi-Agent 是元层/产品层里判断的责任组织（持续、可演进、分散可责、约束求解选型）；八维拆解（架构/生命周期/决策权责/大模型调用/可塑性/记忆归属/可证明性/可追溯性）的后四维直接咬住主线：记忆归属→k1-k4、可证明性→隔离三权验证+门禁、可追溯性→decision.db+ADR+人工终裁。配 `fig-00-5` 八维对照图。
 
-> 篇号说明：0 + 1-12 正文 + 13 后记，共 16 篇。基层基准从 AIHarness 成熟均分 8.7 起步，逐篇递进留 0.2 余量。
+### 第一幕 · 为什么来（2 篇：熵的两重起源）
 
-## 四、写作纪律与质量关卡
+| # | 状态 | 主张 | 标题（中/英） | 钩子 | 实证 | 主流对照 | drawio | 突破维度 |
+|:-:|:-:|------|------|------|------|---------|:---:|------|
+| 0 | ✅ | A1 | 序章：一个不能自我证明的判断器 | 多 Agent 死于不透明，生于可证明 | SmartQuant 演进 | 全谱系 | ①Multi-Agent 总览 | 重构主线 |
+| 1 | ✅ | A1 | 单个 Agent 的信任危机 / The Trust Crisis of a Single Agent | 输出有 A/B，谁是对的 | 单 Agent 失效实例 | LangChain | ①判断失效模型 | 控制论/信息论 |
 
-完全套用 derekwritting-evolution 进化闭环，并遵循 `docs/WRITING-FRAMEWORK.md`（写作框架总纲：引用 derekwritting-framework 适配的配方 / 工序 / 门禁）：
+### 第二幕 · 是什么（2 篇：分工的本质）
 
-1. 每篇动笔前：`python writing-harness/evaluate.py --next` 亮基准（本系列分数板独立）。
-2. 完稿先过 `python writing-harness/writing-gates.py articles/<file>.md`（G1-G5）。
-3. 篇尾补"## 附：门禁评审记录"块（含 G5 期望词：评审 / rubric / 剩留问题）。
-4. 自评录入：`python writing-harness/evaluate.py --record ...`，脚本判定是否严格 > 前序基准。
-5. 每篇至少落实一个前序未用过的突破维度（组织学 / 系统论 / 哲人 / 开源历史新矿），不可复用 AIHarness 已占出处（德鲁克 / 维纳 / 麦肯锡 / 汉谟拉比 / 泰勒福特 / 戴明 / 克劳塞维茨 / 凯文·凯利 / 博尔赫斯 / 海明威 / Dijkstra / 孙子 / CMM / 康威）。
-6. 分数回写三处：scoreboard JSON / docs/article-evaluation-system / SERIES-PLAN。
+| # | 状态 | 主张 | 标题（中/英） | 钩子 | 实证 | 主流对照 | drawio | 突破维度 |
+|:-:|:-:|------|------|------|------|---------|:---:|------|
+| 2 | ✅ | A2 | 分工是判断的可重构 / Division as Reconstructible Judgment | 不是人多，是责任可切 | SmartQuant 三层 | CrewAI/MetaGPT | ①三层分工 | 组织学（斯密） |
+| 3 | ✅ | A2 | 三条轨与三权 / Three Tracks & Three Powers | 分工要配问责 | 三轨制/WBS/Issue | AutoGen GroupChat | ①三轨 + ②三权分立 | 政体/制衡哲学 |
 
-## 五、发布与配套
+### 第三幕 · 怎么用（6 篇：五链主干）—— 技术主体
 
-- 首发主场：腾讯云开发者社区（TVP）。
-- 节奏：周更 1 篇，16 篇约 16 周。
-- 配图：每篇一张核心图，走 derekimage-evolution 闭环。
-- derekcoding 联动：每篇末尾活注脚链具体文件；调研/写作中发现的 derekcoding 方法论缺口，沉淀进 `feedback-to-derekcoding/`。
-- 双语：英文重写（essay），走 derekwritting-evolution-en 门禁。
+| # | 状态 | 主张 | 标题（中/英） | 钩子 | 实证 | 主流对照 | drawio | 突破维度 |
+|:-:|:-:|------|------|------|------|---------|:---:|------|
+| 4 | ✅ | A3 | 选型是求解 / Selection as Constraint Solving | fallback 是陷阱 | 方法 19 Resolver | LangGraph | ①约束求解漏斗 | 运筹学/约束满足 |
+| 5 | ✅ | A3 | 约束即配置 / Constraints as Configuration | 加模型=加配置 | 声明式画像 | LangChain/Ollama | ①模型画像 schema | 声明式思想 |
+| 6 | ✅ | A4 | 少数派也能对 / The Minority Can Be Right | 多数一致≠多数正确 | Swarm 对抗决策 | AutoGen | ①Swarm 五相 | 认识论/孔多塞 |
+| 7 | ✅ | A4 | 宣称对齐事实 / Claims Aligned with Facts | 假分是最大的债 | Bad90 反欺诈 | promptfoo | ①基准对照 Gauge | 诚信/可证伪 |
+| 8 | ✅ | A5 | 治理优先于调度 / Governance before Dispatch | 先立规矩再派人 | 方法 20 门禁 | MCP 权限 | ①治理门禁 | 规则治理/韩非 |
+| 9 | ✅ | A5/A6 | 人不进圈才是浪费 / Humans Inside the Loop | HITL 是闭环非妥协 | SmartQuant HITL | AutoGen | ①HITL 回流闭环 | 人机协同/控制论（维纳） |
 
-## 六、回馈 derekcoding 交付
+### 第四幕 · 到哪去（3 篇：原理飞升与影响）
 
-- 系列完成（或阶段完成后）产出 `feedback-to-derekcoding/special-for-derekcoding.md`。
-- 内容：多 Agent 调度模式、门禁与审计量化、约束求解实际落地观察。
-- 纪律：给明确落点（对应 derekcoding 哪个 methodology）、标"待内化确认"、不拍板。
+| # | 状态 | 主张 | 标题（中/英） | 钩子 | 实证 | 主流对照 | drawio | 突破维度 |
+|:-:|:-:|------|------|------|------|---------|:---:|------|
+| 10 | ✅ | A7 | 组织学的一课 / A Lesson in Organization | Multi-Agent=微型组织 | 三权/制衡/问责 | 科层/一般系统论 | ①组织对照 | 组织管理/一般系统论（韦伯+贝塔朗菲） |
+| 11 | ✅ | A8 | 生产力的可编程化 / The Programmability of Productivity | 判断力从人转移到可编程系统 | 全系列收束 | 政治经济学/技术史 | ①生产力结构迁移 | 政治经济学/技术史（马克思一般智力） |
+| 12 | ✅ | A8 | 后记：熵的账本 / Epilogue: The Ledger of Entropy | Multi-Agent 的最终计量 | 决策留痕 = 记忆 | 无（收官对照留痕两种死法） | ①审计记忆闭环 | 审计/知识资产化（朗道尔原理） |
 
-## 七、验收清单
+### 锚点篇 · 双层架构（1 篇：横向脊梁）
 
-- [ ] 十六篇均含钩子 / 论点 / 实证 / 目标分 / 突破方向
-- [ ] 每篇过门禁 G1-G5 + 评估超前均 + derekcoding 活注脚
-- [ ] 每篇突破维度取前序未用矿源
-- [ ] 调研报告（survey）被至少一篇作为方法论对比引用源
-- [ ] 回馈 derekcoding 的 special 文档已产出具落点建议
-- [ ] 完成后并入《RefactoringSoftwareEngineering》并在其上登记
+| # | 状态 | 主张 | 标题（中/英） | 钩子 | 实证 | 主流对照 | drawio | 突破维度 |
+|:-:|:-:|------|------|------|------|---------|:---:|------|
+| 13 | ✅ | A9 | 两层 Agent：造系统的，与在系统里的 / Two Layers of Agents: Those Who Build, and Those Who Work Inside | 分工问错了地方：重在元/产品双层不对称 | 双层架构 + k1-k4 记忆总线 + k4 回流 | 单池模型（把 Agent 揉进一个池子） | ②双层工厂/车间 + ②四层记忆总线 | 系统科学/组织记忆（赫伯特·西蒙近可分解系统） |
+
+> 锚点篇 13 立主张 **A9（两层 Agent）**：元层=造与验的工厂（WBS 规划→资源分配→无状态执行子 Agent→隔离三权验证→门禁 G1-G7→产物下发 P13），产品层=干活的车间（意图路由→9 角色注册表→双通道顺序链路/Swarm 对抗→决策落库 decision.db→HITL 建议终裁）；记忆分四层 k1 规则 / k2 会话工作记忆 / k3 长期情节记忆 / k4 跨层单向回流（带 ADR 审计 + 人工终裁）。关键不对称：元层只读 k1+k2（造），产品层读 k1+k2+k3（干），k4 是唯一直通口径且单向。回改 08/09/12 三篇：08 派活前不变量=元层 k1 产物、09 HITL=站在 k4 回流裁决位、12 decision.db=产品层 k3 + k4 链接账本与 HITL。
+
+> 篇号说明：篇外对照专题 0.5 + 序章 0 + 正文 1-12（四幕）+ 锚点篇 13，共 15 篇交付。每篇正文 ~3000 字、1-2 张 drawio、中英双语双面。
+
+> 收缩主线（2026-09-28 重构）：主体保留"序章 0 + 正文 1-12 + 锚点 13"不扩篇幅，广度靠「谱系对照」外拓，每篇正文显式点名落在 Agent 应用谱系哪一格、对话哪类应用、又刻意不覆盖什么（研报/RAG 自动化、SWE Agent/编排框架、Agentic RPA/企业 Copilot、多 Agent 辩论·对抗、MCP/工具生态）；序章 §六 上线「全系列地图」`fig-00-key`（四幕 + 锚点篇 + 谱系带一张拎起），`fig-00-pipeline` 独立为 Multi-Agent 流水线图。另在序章与篇 1 之间增补一篇**篇外对照专题 0.5**，拆解"运行时 Subagent vs Multi-Agent 多 Agent"这一最容易看错的分野——主体仍不扩篇，0.5 是为防止读者在抵达锚点前误判"这是另一种 subagent"而单独补充的对照脊柱。
+
+## 三、每篇的标准配方（正文骨架）
+
+每篇固定五段，段段回主线：
+1. **钩子**：从一个反直觉的现象或失败切入。
+2. **主张**：亮出 A1-A8 中该篇的那条，用一句话说清"它如何服务 Multi-Agent"。
+3. **实证**：SmartQuant / derekcoding 真实落地的取舍、门禁、留痕，不写没跑过的。
+4. **对照**：与主流框架显式比一次，点出它教了我们什么、缺了什么。
+5. **原理飞升 + 交棒**：把方法抽象成一句原理，并为下一幕递进埋手。
+
+中文正文末尾附"第一天就能用的清单"（3 条）；英文 essay 末尾附"Takeaway"。
+
+## 四、画画：drawio 出图纪律（复用 smartquant）
+
+- 每篇配图：第一幕 1 张、主体幕 2 张、收束幕 1-2 张；对照专题 0.5 配 1 张八维对照图。共 17 张（含 `fig-00-key` 全系列地图 + `fig-00-pipeline` 流水线 + `fig-00-5` 八维对照）。
+- 统一走单一数据源脚本（NODES / EDGES → .drawio + HTML/SVG 双输出）。
+- 三条几何 QA 硬过：R1 边不穿节点 / R2 正交边不共线重叠 / R3 不越界不悬空。
+- 语义配色：输入 / 过程 / 存储 / 外部 / 风险 / 分区分区用色。
+- 每张图标注：主张编号（A1-A8）+ 用途（是哪一链的可视化）。
+- 出图脚本与数据放 `diagrams/`，产物为 `diagrams/<篇号>-<图名>.drawio` + `.html`。
+
+## 五、双语执行（需求 9）
+
+- 每篇两条交付：`articles/<篇号>-<slug>.zh.md`（中文 ~3000 字）+ `articles/en/<篇号>-<slug>.en.md`（英文 essay）。
+- 主张编号、术语、配图统一；英文做跨文化重述，不逐句直译。
+- 中文门禁 `writing-harness/writing-gates.py` + `evaluate.py`；英文门禁 `writing-gates-en.py` + `evaluate-en.py`。
+- 发布：中文腾讯云 TVP；英文独立 essay 通道。
+
+## 六、荆棘轮门禁（需求 7，硬性）
+
+- 规则（已裁定）：**主导规则 = 每篇锁定 9.5-9.9 目标带**，向带内上沿（9.9）递进；相对前均采用"不低于"而非"严格大于"（因序章基准 9.8 使"严格超前均且 ≤9.9"在几步后不可兼得）。
+- 目标区间：**单篇 9.5-9.9** 为硬下界，逐篇向 9.9 收敛。
+- 先过门禁 G1-G5 再评分；评分参考 rubric，禁止"看起来对"的假分。
+- 每篇至少落实一个前序未用过的突破维度。
+- 评分真值单：`writing-harness/evaluation-scoreboard.json`；人类可读镜像 `docs/article-evaluation-system.md`。
+
+## 七、发布与节奏
+
+- 中文首发：腾讯云开发者社区（TVP）；英文 essay 独立通道。
+- 节奏：周更 1 篇，13 篇约 13 周。
+- 调研底稿：`docs/multi-agent-survey.md` 作为第 1、11 篇的方法论对比引用源。
+
+## 八、验收清单
+
+- [x] 主线严格收紧到"Multi-Agent"（对照 SCOPE 收紧纪律自检）
+- [x] 15 篇（0.5 对照专题 + 0 序章 + 1-12 正文 + 锚点 13），每篇正文 ~3000 字，中英双语双面
+- [x] 每篇 1-2 张 drawio，全部过几何 QA（R1/R2/R3）
+- [x] 每篇过门禁 G1-G5 + 荆棘轮 > 前序均值，目标 9.5-9.9
+- [x] 每篇至少一个前序未用突破维度
+- [x] 四幕递进完整覆盖：为什么 / 是什么 / 怎么用 / 原理与影响
+- [x] 与主流框架（CrewAI 等）显式碰撞已覆盖
+- [x] 锚点篇 13 双层架构 + k1-k4 记忆手递手为主线横向脊梁
+- [ ] 完成 review 与优化后，回馈 derekcoding 的 special 文档产出具落点建议

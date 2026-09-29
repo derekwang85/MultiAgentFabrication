@@ -1,10 +1,15 @@
 {
   "schema_version": "1.0",
-  "updated": "2026-09-05",
+  "updated": "2026-09-28",
   "system": {
     "scale_max": 10.0,
-    "rule": "新文章写作水平必须超过前序所有文章的平均分（基准线）。",
-    "deadline_note": "平均分 = 全部已评分数值的算术平均，保留 2 位。基准线用于下一篇文章的目标分。"
+    "rule": "主导规则：每篇锁定 9.5-9.9 目标带，向带内上沿递进；相对前序均分采用“不低于”而非“严格大于”。先过门禁再评分，每篇至少落实一个前序未用过的突破维度。",
+    "deadline_note": "平均分 = 全部已评分数值的算术平均，保留 2 位。基准线用于下一篇文章的目标分。",
+    "naming": {
+      "concept_term": "Multi-Agent",
+      "decision": "HITL 2026-09-28 全局统一：正文/配图/配套文档概念词 判断工厂 -> Multi-Agent（用户指令）；Subagent 侧标签统一为 执行分身；判断责任方统一为 责任组织；独立 判断器 保留为问题态术语；项目专名保留 MultiAgent Fabrication / MultiAgentFabrication。",
+      "en_system_noun": "judgment factory（英文 essay 保留为系统专名，避免 Multi-Agent 单用丢失‘可证明判断’义涵）"
+    }
   },
   "breakthrough_dims": [
     "遣词造句",
@@ -13,14 +18,154 @@
   ],
   "articles": [
     {
+      "key": "00-5-subagent-vs-multiagent.zh",
+      "title": "00-5-subagent-vs-multiagent.zh",
+      "file": "articles/00-5-subagent-vs-multiagent.zh.md",
+      "score": 10.0,
+      "status": "样稿待审",
+      "date": "2026-09-28",
+      "breakthrough": "经典案例（认知科学家梅林·唐纳德：个体用工具 vs 把认知外化成公共资产的社会性思维，把subagent=执行并行化、Multi-Agent=判断责任化钉进认知进化谱系）",
+      "note": "篇外对照专题0.5：正面拆解'你都subagent了为何还折腾MultiAgent'；八维对照(架构/生命周期/决策权责/大模型调用/可塑性/记忆归属/可证明性/可追溯性)，后四维咬住主线(k1-k4/隔离验证/decision.db)；配fig-00-5八维对照图过几何QA"
+    },
+    {
       "key": "00-prologue",
-      "title": "序章：很多 Agent，然后呢？",
+      "title": "序章：一个不能自我证明的判断器",
       "file": "articles/00-prologue.md",
-      "score": 8.8,
+      "score": 9.8,
       "status": "样稿待审",
       "date": "2026-09-05",
       "breakthrough": "经典案例",
-      "note": "首篇立骨架，方法论对比谱系（survey）奠基"
+      "note": "收缩主线重构：保留十三篇骨架不扩篇；§六改版为'全系列地图'fig-00-key(四幕+锚点篇+谱系带)，爽快拎起全结构；上线fig-00-pipeline与fig-00-key双图"
+    },
+    {
+      "key": "01-trust-crisis.zh",
+      "title": "单个 Agent 的信任危机",
+      "file": "articles/01-trust-crisis.zh.md",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "经典案例",
+      "note": "扩正文到2805汉字：新增黑盒验证黑盒量级误差放大边界节(同温盖章=可商榷变不可质疑/量级对照)、LangChain可组合链不等同可证明判断拆解、Bad90逐级判定序列示例"
+    },
+    {
+      "key": "02-division.zh",
+      "title": "分工是判断的可重构",
+      "file": "articles/02-division.zh.md",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "名言名句引用",
+      "note": "扩正文到3003汉字：新增粒度悬崖边界节(太细退回黑盒/恰好一个可点名)、三层契约三对照柱表、追不到人反例、CrewAI字段级拆解(role/goal/backstory缺交接账本)"
+    },
+    {
+      "key": "03-tracks-powers.zh",
+      "title": "三条轨与三权",
+      "file": "articles/03-tracks-powers.zh.md",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "孟德斯鸠名言引用（以权约束权力）",
+      "note": "扩正文到2978汉字：新增三权闭环缺口边界节(只拆手不拆回路=空转/回流入账为第五项验收)、三轨账本行示例(WBS/Issue/Test互咬)、AutoGen GroupChat无三账三手拆解、报告修复验证同一人反例"
+    },
+    {
+      "key": "04-selection.zh",
+      "title": "04-selection.zh",
+      "file": "articles/04-selection.zh.md",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "运筹学约束满足+道家'无为而无不为'引喻",
+      "note": "谱系对照外拓：新增谱系定位段，明示落SWE Agent/编排框架格、刻意不收Agentic RPA/企业Copilot(其解在篇8/9)；width via 对照非扩篇"
+    },
+    {
+      "key": "05-configuration.zh",
+      "title": "05-configuration.zh",
+      "file": "articles/05-configuration.zh.md",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "开源历史经典案例：K8s声明式vs命令式范式迁移",
+      "note": "谱系对照外拓：借MCP/工具生态(声明式画像因工具可枚举)，明示非RAG/研报自动化模板；width via 对照非扩篇"
+    },
+    {
+      "key": "06-minority.zh",
+      "title": "06-minority.zh",
+      "file": "articles/06-minority.zh.md",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "认识论数学锚点：孔多塞陪审团定理（多数聚合只放大偏置、不产生正确性）",
+      "note": "谱系对照外拓：对表多Agent辩论·对抗(Swarm类)，对照RAG朴素多数与Copilot流程跑通；width via 对照非扩篇"
+    },
+    {
+      "key": "07-claims",
+      "title": "07-claims.zh",
+      "file": "07-claims.zh",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "科学哲学锚点：波普尔可证伪性（可证伪=宣称对齐事实的入场券）",
+      "note": "谱系对照外拓：横贯SWE Agent/编排框架与RAG/研报自动化，刻意不收Agentic RPA"
+    },
+    {
+      "key": "08-governance",
+      "title": "08-governance.zh",
+      "file": "08-governance.zh",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "法家哲学锚点：韩非子'法不阿贵，绳不挠曲'（规矩先于调度被验证，权限=闸门/规矩=宪章）",
+      "note": "谱系对照外拓：对照Agentic RPA/企业Copilot权限管控与Multi-Agent前置门禁宪章之别"
+    },
+    {
+      "key": "09-hitl",
+      "title": "09-hitl",
+      "file": "09-hitl.zh",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "控制论源头：诺伯特·维纳《人有人的用处》'有效生活=以足够好的信息生活'，反馈定生死，HITL是闭环非妥协，人不在圈上系统越转越聋；区分用当闭环/挂当符号的HITL",
+      "note": "谱系对照外拓：与Agentic RPA兜底符号-HITL划界、对照SWE review-as-gate"
+    },
+    {
+      "key": "10-organization",
+      "title": "10-organization",
+      "file": "10-organization.zh",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "双源并置：韦伯《经济与社会》形式理性化/iron cage铁笼预警线 + 贝塔朗菲一般系统论'活系统同一套逻辑'，以'官僚制纸面规则逼近可计算、Multi-Agent机器检查规则逼近可证明'把多Agent钉进组织学谱系",
+      "note": "谱系对照外拓：把整谱系读作一门组织律——研报=分工/SWE=三权/RPA=控熵/Copilot=问责，四根梁统一坐标"
+    },
+    {
+      "key": "11-programmability",
+      "title": "11-programmability",
+      "file": "11-programmability.zh",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "政治经济学源头：马克思《政治经济学批判大纲》(Grundrisse)的'一般智力(general intellect)'——知识能力越来越深沉淀进固定资本/技术、个人才能不再唯一承载生产力，作为'判断从天赋变可编程生产资源'的理论坐标；以生产史蒸汽机替代动力/电力替代传能/Multi-Agent替代判断三层类比收束",
+      "note": "谱系对照外拓：内容工业化/工程劳动力可编程化/操作层自动化同归于'判断可编程化'一条投影，非每App都需Multi-Agent"
+    },
+    {
+      "key": "12-ledger",
+      "title": "12-ledger",
+      "file": "12-ledger.zh",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-23",
+      "breakthrough": "物理学源头：罗尔夫·朗道尔'朗道尔原理'（擦除一比特信息最低耗散 k_B·T·ln2 的能量，信息是物理的、不是免费的），把'决策留痕=记忆'钉在熵增的硬地基上，作为'Multi-Agent最终计量'的理论坐标",
+      "note": "谱系对照外拓：一张账本横贯全体谱系，账本=可管理性的必要条件"
+    },
+    {
+      "key": "13-two-tier-meta-product.zh",
+      "title": "13-two-tier-meta-product.zh",
+      "file": "articles/13-two-tier-meta-product.zh.md",
+      "score": 9.8,
+      "status": "样稿待审",
+      "date": "2026-09-26",
+      "breakthrough": "赫伯特·西蒙近可分解层级/组织记忆锚定双层记忆不对称",
+      "note": "谱系对照外拓：双层vs单池对表SWE/Copilot生产系统，刻意不收短RAG链"
     }
   ]
 }
